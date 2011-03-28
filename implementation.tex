@@ -1,8 +1,19 @@
 \chapter{Implementation}
 
-This chapter details the implementation of the methods mentioned before into a working system. The system consists of 2 main components, the frontend, consisting of the Javascript bookmarklet and the UI displaying the extracted data. This was impelemented in Ruby on Rails. The second component is the machine learning component, implemented in Java using the Weka library.
+This chapter details the implementation of the methods mentioned before into a working system. The system consists of 3 main components, the architecture is depicted in Figure \ref{fig:systemarchitecture}. The components shown are the following:
 
-%diagram of the system architecture.
+\begin{enumerate}
+	\item \textbf{Selection Interface} This is implemented as a bookmarklet which the user can simply drag into the toolbar of the browser.
+	\item \textbf{Web Application} This is the frontend of the system, allowing the user to create, update and delete their extractors, and also to be able to view their extracted data.
+	\item \textbf{Machine Learning Component} This is the component that creates a classification model based on the generated XPath and the pages selected to be extracted from.
+\end{enumerate}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.43]{implementation.png} 
+\caption{Overall system architecture}
+\label{fig:systemarchitecture}
+\end{figure}
 
 \section{Selection Interface}
 \label{chap:selection}
