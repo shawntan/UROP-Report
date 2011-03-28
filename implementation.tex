@@ -17,13 +17,18 @@ The selection interface described in this section aims to provide visual feedbac
 \label{fig:selection_example}
 \end{figure}
 
+
 For greater automation, the bookmarklet interface attempts to reduce the amount of labelling work the user has to do by trying to predict what the user wants to extract from the page. More specifically, as the user selects the individual HTML elements on the page using the interface, the bookmarklet attempts to generalise an XPath that captures the selected elements, and also elements on the page with similar characteristics, like class names and position within the parent tag.
 
 %have a loopy diagram to show the iterative work between user and algo.
 
 The process is an iterative one. When the user clicks on a new element on the page, the XPath is recalculated, and then used to highlight the captured items on the page. This way, the user understands the changes he/she has made to the extraction scope as he/she clicks on additional items. The user is then able to perform this task for any number of labels the user thinks is appropriate for the extractor he/she is creating.
 
-The bookmarklet does this by way of AJAX callbacks to the RoR frontend. One of the technical difficulties in implementing this was the fact that the standard XMLHttpRequest method of AJAX callbacks were not usable due to the cross-site security put into place by the Javascript API. The workaround was to use hidden form elements within the interface to send POST requests back to the server. Data was fetched by inserting script tags and callbacks to allow the JSON objects to be passed back into the small Javascript application.
+\subsection{Engineering challenges}
+
+One of the aims of the interface was to ensure that the item would not require the hassle of installation. This included not only standalone, specialised browsers for selection of items, but also extended to plugins -- since a different plugin would have to be written for every browser. We made the decision to go with a bookmarklet because it was one of the few ways we could still run our code on top of another website. In general, a bookmarklet achieves this by injecting a \url{<SCRIPT>} tag into the host page, with the \url{src} attribute pointed to the main code hosted on the application's server. Since this meant downloading the code every time the bookmarklet is activated, one of our challenges was also to keep the code small.
+
+The bookmarklet sends the created unserialised generalised traversal paths and XPaths back this by way of AJAX callbacks to the RoR frontend. One of the technical difficulties in implementing this was the fact that the standard XMLHttpRequest method of AJAX callbacks were not usable due to the cross-site security put into place by the Javascript API. The workaround was to use hidden form elements within the interface to send POST requests back to the server. Data was fetched by inserting script tags and callbacks to allow the JSON objects to be passed back into the small Javascript application.
 
 \section{Machine Learning Component}
 Once the XPath is sent from the bookmarklet back to the server-side application and inserted into the database, the user then has the option to test his/her created extractor. Once the user selects this option the machine-learning component visits the new page inserted, and crawls within the domain for similar pages. In this context, similar pages refer to HTML documents that return results, of any number, when a query is made using any of the previously labelled XPaths. 
