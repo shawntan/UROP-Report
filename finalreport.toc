@@ -12,16 +12,17 @@
 \contentsline {subsection}{\numberline {2.1.1}XPath Generation}{6}
 \contentsline {chapter}{\numberline {3}Method}{9}
 \contentsline {section}{\numberline {3.1}Path Traversal Alignment}{9}
-\contentsline {subsection}{\numberline {3.1.1}Element rejection}{12}
+\contentsline {subsection}{\numberline {3.1.1}Element rejection}{11}
 \contentsline {subsection}{\numberline {3.1.2}Limitations}{12}
-\contentsline {section}{\numberline {3.2}Robust Extraction}{12}
-\contentsline {subsection}{\numberline {3.2.1}Limitations}{13}
-\contentsline {chapter}{\numberline {4}Implementation}{15}
-\contentsline {section}{\numberline {4.1}Selection Interface}{15}
-\contentsline {subsection}{\numberline {4.1.1}Engineering challenges}{16}
-\contentsline {section}{\numberline {4.2}Machine Learning Component}{17}
-\contentsline {chapter}{\numberline {5}Evaluation}{18}
-\contentsline {chapter}{\numberline {6}Conclusion}{19}
-\contentsline {section}{\numberline {6.1}Contributions}{19}
-\contentsline {section}{\numberline {6.2}Future Work}{19}
-\contentsline {chapter}{References}{20}
+\contentsline {section}{\numberline {3.2}Robust Extraction}{13}
+\contentsline {subsection}{\numberline {3.2.1}Features used}{13}
+\contentsline {subsection}{\numberline {3.2.2}Limitations}{14}
+\contentsline {chapter}{\numberline {4}Implementation}{16}
+\contentsline {section}{\numberline {4.1}Selection Interface}{16}
+\contentsline {subsection}{\numberline {4.1.1}Engineering challenges}{17}
+\contentsline {section}{\numberline {4.2}Machine Learning Component}{18}
+\contentsline {chapter}{\numberline {5}Evaluation}{19}
+\contentsline {chapter}{\numberline {6}Conclusion}{20}
+\contentsline {section}{\numberline {6.1}Contributions}{20}
+\contentsline {section}{\numberline {6.2}Future Work}{20}
+\contentsline {chapter}{References}{21}

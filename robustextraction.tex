@@ -1,14 +1,16 @@
 \section{Robust Extraction}
 \label{section:extraction}
+The above method enables us to generate a fixed rule (XPath) to extract data from the given pages. However, XPath is heavily reliant on the structure of the DOM page in its present form: Any element extracted is defined by its ancestor nodes and their attributes. Once this is changed, which is likely due to a layout change, the same XPath may no longer be applicable to the current page. 
+
 In order to be able to extract data even after a change in layout, another method of extraction without the use of XPath is required. Our approach for this system uses a machine learned model. The rest of the chapter elaborates on the details of the implementation.
 
-In our framework, we use the provided XPaths together with the URLs of the pages to be extracted as annotated documents. Each node in the DOM is treated as a separate instance, and labelled based on the XPath it was extracted by. The XPaths are assumed to be mutually exclusive.
+In our framework, we use the provided XPaths together with the URLs of the pages to be extracted as annotated documents. Each node in the DOM is treated as a separate instance, and labelled based on the XPath it was extracted by. The XPaths are assumed to be mutually exclusive. We have chosen to use decision trees because the generated models can be easily interpreted compared to the other methods. We originally intended to exploit this property of decision trees in order to create robust XPaths. However, this was not implemented due to time constraints.
 
-
+\subsection{Features used}
 To keep the model more robust and resistant to layout changes on the original site, content features are extracted in order to use less of the HTML structure for extraction. In this system, a J48 decision tree classifier is used. Positive examples of HTML elements are those returned when the XPath is applied to the given page. The following features are extracted:
 
 	\begin{itemize}
-		\item Word occurrence count (Numeric)
+		\item Word occurrence count, or tokens (Numeric)
 		\item Tag name (Discrete)
 		\item Previous sibling, next sibling and parent tag name (Discrete)
 		\item Number of words/tokens (Numeric)
@@ -16,8 +18,15 @@ To keep the model more robust and resistant to layout changes on the original si
 		\item Header (Discrete)
 	\end{itemize}
 	
+
+	
+	%need to run more tests on SVMs and dec trees
+	
 	For subsequent extractions, the server will first use the available XPath for extraction from the site. If the XPath rule fails to find elements for extraction, the learnt classification model is used. Figure \ref{fig:decisiontree} shows a decision tree when the process is run on a Google search result with the result entries selected for extraction.
 	\input{dectree}
+	
+	As we can see, the generated decision tree seems pretty reasonable given a Google search result. The \url{parent.}	prefix is the equivalent to the statement ``if the parent of the element". We can see that the generated tree is looking for elements with parents that are headers and contain 2 or more words.
+	
 \subsection{Limitations}
 	We found that many annotations capture very few elements per page when compared to the total number of elements for that page. By attempting to balance the number of elements that belong to labels with those that were not captured by any XPath, we hoped to improve the performance of the classifier. However, this still yielded relatively poor results. Eventually, we crawled the site for other pages which had elements captured by the same set of XPaths. This gave us more instances to train the classifier on, and gave better results.
 	
