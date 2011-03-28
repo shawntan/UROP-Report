@@ -1,0 +1,29 @@
+\begin{table}[t]
+\centering
+\singlespacing
+\small
+\begin{tabular}{| c | c | c | c |c | c | c | c | c | c |}
+\hline
+	Batch &	Label & Future Batch & TP & FP & FN & TN & & Recall\% & Precision\% \\
+\hline
+\input{groupeddigg.out.svm}
+\hline
+\end{tabular}
+\caption{SVM evaluation results}
+\label{tab:svmevalresults}
+\end{table}
+\newpage
+\begin{table}[t]
+\centering
+\singlespacing
+\small
+\begin{tabular}{| c | c | c | c |c | c | c | c | c | c |}
+\hline
+	Batch &	Label & Future Batch & TP & FP & FN & TN & & Recall\% & Precision\% \\
+\hline
+\input{groupeddigg.out.tree}
+\hline
+\end{tabular}
+\caption{Tree evaluation results}
+\label{tab:treeevalresults}
+\end{table}

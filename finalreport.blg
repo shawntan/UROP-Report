@@ -1,0 +1,76 @@
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: finalreport.aux
+The style file: socreport.bst
+Database file #1: UROP.bib
+Warning--there's a number but no volume in Anton2004
+`month' is a missing field, not a string, for entry Anton2004
+while executing---line 1367 of file socreport.bst
+`month' is a missing field, not a string, for entry Arasu2003
+while executing---line 1367 of file socreport.bst
+`month' is a missing field, not a string, for entry Baumgartner2001
+while executing---line 1367 of file socreport.bst
+`month' is a missing field, not a string, for entry Chang2001
+while executing---line 1367 of file socreport.bst
+`month' is a missing field, not a string, for entry Chawathe1994
+while executing---line 1367 of file socreport.bst
+`month' is a missing field, not a string, for entry Crescenzi2002
+while executing---line 1367 of file socreport.bst
+Warning--empty address in Dalvi2009
+`month' is a missing field, not a string, for entry Dalvi2009
+while executing---line 1367 of file socreport.bst
+`month' is a missing field, not a string, for entry Freitag1998
+while executing---line 1367 of file socreport.bst
+Warning--empty booktitle in Gatterbauer2007
+`month' is a missing field, not a string, for entry Gatterbauer2007
+while executing---line 1367 of file socreport.bst
+`month' is a missing field, not a string, for entry AikMiang2005
+while executing---line 1367 of file socreport.bst
+`month' is a missing field, not a string, for entry Lee2004
+while executing---line 1367 of file socreport.bst
+Warning--empty address in Perkowitz1995
+`month' is a missing field, not a string, for entry Perkowitz1995
+while executing---line 1367 of file socreport.bst
+`month' is a missing field, not a string, for entry Soderland
+while executing---line 1367 of file socreport.bst
+You've used 15 entries,
+            2653 wiz_defined-function locations,
+            670 strings with 7438 characters,
+and the built_in function-call counts, 7065 in all, are:
+= -- 695
+> -- 327
+< -- 11
++ -- 119
+- -- 119
+* -- 639
+:= -- 1240
+add.period$ -- 43
+call.type$ -- 15
+change.case$ -- 113
+chr.to.int$ -- 15
+cite$ -- 34
+duplicate$ -- 228
+empty$ -- 456
+format.name$ -- 135
+if$ -- 1375
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 14
+newline$ -- 76
+num.names$ -- 94
+pop$ -- 121
+preamble$ -- 1
+purify$ -- 113
+quote$ -- 0
+skip$ -- 225
+stack$ -- 0
+substring$ -- 359
+swap$ -- 41
+text.length$ -- 4
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 135
+warning$ -- 4
+while$ -- 68
+width$ -- 0
+write$ -- 245
+(There were 13 error messages)

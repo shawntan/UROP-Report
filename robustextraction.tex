@@ -1,0 +1,25 @@
+\section{Robust Extraction}
+\label{section:extraction}
+In order to be able to extract data even after a change in layout, another method of extraction without the use of XPath is required. Our approach for this system uses a machine learned model. The rest of the chapter elaborates on the details of the implementation.
+
+In our framework, we use the provided XPaths together with the URLs of the pages to be extracted as annotated documents. Each node in the DOM is treated as a separate instance, and labelled based on the XPath it was extracted by. The XPaths are assumed to be mutually exclusive.
+
+
+To keep the model more robust and resistant to layout changes on the original site, content features are extracted in order to use less of the HTML structure for extraction. In this system, a J48 decision tree classifier is used. Positive examples of HTML elements are those returned when the XPath is applied to the given page. The following features are extracted:
+
+	\begin{itemize}
+		\item Word occurrence count (Numeric)
+		\item Tag name (Discrete)
+		\item Previous sibling, next sibling and parent tag name (Discrete)
+		\item Number of words/tokens (Numeric)
+		\item Ending with character (:,-,.) (Discrete)
+		\item Header (Discrete)
+	\end{itemize}
+	
+	For subsequent extractions, the server will first use the available XPath for extraction from the site. If the XPath rule fails to find elements for extraction, the learnt classification model is used. Figure \ref{fig:decisiontree} shows a decision tree when the process is run on a Google search result with the result entries selected for extraction.
+	\input{dectree}
+\subsection{Limitations}
+	We found that many annotations capture very few elements per page when compared to the total number of elements for that page. By attempting to balance the number of elements that belong to labels with those that were not captured by any XPath, we hoped to improve the performance of the classifier. However, this still yielded relatively poor results. Eventually, we crawled the site for other pages which had elements captured by the same set of XPaths. This gave us more instances to train the classifier on, and gave better results.
+	
+	The crawler starts with a given set of pages, and crawls links with URLs similar to the given pages. The similarity score is given by the edit distance between the link URL and the URL of the wanted pages. A heap is used to store the seen links, and the most similar URL selected at every round. The crawler stops when it has collected a fixed number of instances, which is now set at 500.
+

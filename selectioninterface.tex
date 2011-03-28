@@ -1,0 +1,60 @@
+\section{Path Traversal Alignment}
+An important aspect which describes tags which are visually similar is its traversal path from the \url{<BODY>} tag. Parents of selected tags with similar tag names or that have similar attributes are likely to be tags that look visually similar on the page. This also implies that the elements are probably items that that the user would also be looking for.
+
+\begin{figure}[htbp]
+\singlespacing
+	\begin{algorithm}[H]
+	\caption{\textsc{PTAlign}$(P,Q,\lambda)$}
+	\begin{algorithmic}[1]
+		\FOR{$i \leftarrow 1$ to $|P| + 1$}
+			\FOR{$j \leftarrow 1$ to $|Q| + 1$}
+				\STATE $M_{i,j} \leftarrow \max(M_{i-1,j},M_{i-1,j-1},M_{i,j-1}) + \textsc{Score}(P_i,Q_j)$
+			\ENDFOR	
+		\ENDFOR
+		\STATE $R \leftarrow []$
+		\WHILE{$i > 1$ and $j > 1$}
+			\IF{$M_{i,j} - \textsc{Score}(P_i,Q_j) = M_{i-1,j-1}$}
+				\STATE $R \leftarrow \lambda(P_i,Q_j) + R$
+				\STATE $i,j \leftarrow i-1,i-j$
+			\ELSIF{$M_{i,j} - \textsc{Score}(P_i,Q_j) = M_{i-1,j}$}
+				\STATE $R \leftarrow * + R$
+				\STATE $i,j \leftarrow i-1,j$
+			\ELSIF{$M_{i,j} - \textsc{Score}(P_i,Q_j) = M_{i,j-1}$}
+				\STATE $R \leftarrow * + R$
+				\STATE $i,j \leftarrow i,j-1$
+	    	\ENDIF	
+		\ENDWHILE
+		\RETURN $R$
+	\end{algorithmic}
+	\end{algorithm}
+\caption{The \textit{Traversal Path Alignment} algorithm}
+\label{fig:lcas}
+\end{figure}
+
+We propose using a Needleman-Wunsch global alignment algorithm for this purpose. Given the input of 2 arrays $P$ and $Q$ of elements, the scoring function is given as $\textsc{Score}(P_i,Q_j) = |P_i \cap Q_j|$, where $P_i$ and $Q_j$ are elements (sets of attributes) along $P$ and $Q$. After the alignment, a new generalised traversal path is created, $P'$, such that $P'_k = P_i \cap Q_j$, where $P_i$ and $Q_j$ are elements in the original traversal paths that were aligned. Figure \ref{fig:lcas} gives the pseudocode for the \textit{Path Traversal Alignment} algorithm (PTA).
+
+
+When selecting additional elements for generalising the XPath, the $\lambda$ function would be defined as $\lambda(P_i,Q_j) = P_i \cap Q_j$. This would reconstuct a generalised traversal path with common elements and their common attributes. Gaps in the path are represented as ``*" in the output. During the serialisation of the XPath, groups of these are converted to \url{//} to represent any descendant.
+
+This process is a bottom-up approach: Users start with a single element, and as more items are selected, the items captured by the XPath generated grows. For each element along the selected item's path, the similarities between the tag's attributes are kept, and the differences removed. This results in an extraction rule with fewer and fewer constraints as more elements are selected.
+
+\input{lcsexample}
+
+Using alignment of the path elements, XPath rules can be generalised for elements at different levels of the DOM tree. Figure \ref{fig:lcsdiagram} is an example of the array generated when 2 \url{<a>} tags are compared, one at a depth of 5 from the \url{<body>} tag, and another at depth 3. The \url{<body>} tag is omitted in order to reduce the running time of the algorithm, as it is common in the paths for all visible elements on a given page. The algorithm is then able to generalise an XPath: \url{//div[@id=`main']/div//a}. This XPath will include both selected elements, as well as other anchor tags that the user may be interested in.
+
+
+\input{lcsfigure}
+
+It is important to note that serialising the generalised model to its XPath form would result in loss of information. As such the model in its unserialised form is kept, and used again when another item on the page is selected. Since this process has an associative property, the order in which items are selected on the page does not matter, and the user can then select 3 items or more in order to specify the items he wants.
+
+\subsection{Element rejection}
+
+Once the user has defined a region for extraction, he/she may find that the region includes items are irrelevant. Our objective was to make this process part of the selection process as well. In order to achieve this, we used the same alignment algorithm, with $P$ as the already generalised path, and $Q$ as the new traversal path of the element that the user wishes to reject, with $\lambda$ defined as $\lambda(P_i,Q_j) = Q_j - (P_i \cap Q_j)$.
+
+
+\subsection{Limitations}
+There are still several limitations to this method. When $Q_j = P_i \cap Q_j$ for all $i,j$ in the aligned path, that rejection path cannot be used. This usually implies that the traversal paths of the wanted elements and the rejected elements are indistinguishable using the considered attributes. In such a case, the user is not allowed to select elements that cause such an event. Once the first rejection element has been generalised with the above method, additional rejection elements can then be generalised using the first algorithm.
+
+Also, the mentioned method of generalising the XPath is a form of a multiple sequence alignment, but since it is approached using a sequence of pairwise alignments, the optimal alignment may not be achieved. However, the selection scopes of the generated XPaths are generally usable for scraping.
+
+

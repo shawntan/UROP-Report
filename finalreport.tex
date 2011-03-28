@@ -1,0 +1,83 @@
+\documentclass[urop]{socreport}
+\usepackage{fullpage}
+
+
+\usepackage{url}
+\usepackage{amsmath,amsthm,amsfonts}
+\usepackage{algorithm,algorithmic}
+\usepackage[dvips]{color}
+\usepackage{algorithm,algorithmic}
+\usepackage{graphicx}
+
+
+\usepackage{tikz}
+\usetikzlibrary{trees}
+\usetikzlibrary[positioning]
+\usetikzlibrary{calc}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{fit}
+\usetikzlibrary{backgrounds}
+\tikzstyle{level 1}=[level distance=4cm, sibling distance=3.5cm]
+\tikzstyle{level 2}=[level distance=4cm, sibling distance=2cm]
+\tikzstyle{bag} = [text width=4em, text centered]
+\tikzstyle{end} = [circle, minimum width=3pt,fill, inner sep=0pt]
+\tikzstyle{fork} = [circle, minimum width=3pt,fill, inner sep=0pt]
+
+\begin{document}
+\pagenumbering{roman}
+\title{User-centric Web Information Extraction}
+\author{Shawn Tan}
+\projyear{2010/11}
+\projnumber{U096883L}
+\advisor{A/P Min-Yen Kan}
+\deliverables{
+	\item Report: 1 Volume
+	\item Source Code: 1 DVD}
+\maketitle
+\begin{abstract}
+In this report, I present an algorithm providing an iterative method for users to generate a 
+wrapper visually from a given web page, and also a machine learning solution for extraction of
+data after a site layout change. These were implemented as a system, and then evaluated 
+both quantitatively and qualitatively. 
+
+\begin{descriptors}
+	\item H3.5 Web-based Services
+    \item H2.8 Data Mining
+	\item I5.2 Pattern Analysis
+\end{descriptors}
+\begin{keywords}
+	bookmarklet,  XPath, alignment, information extraction
+\end{keywords}
+\begin{implement}
+	Java, Ruby 1.9.2, Javascript
+\end{implement}
+\end{abstract}
+
+\begin{acknowledgement}
+	I would like to extend my gratitude to my supervisor, A/P Kan Min-Yen, for his patience
+when explaining certain concepts to me, and guidance throughout the project. I am grateful
+for this opportunity to work on this UROP project under his care. I would also like to thank
+the entire WING group, for their valuable advice, especially Jesse Prabawa, for answering 
+so many of my questions. 
+\end{acknowledgement}
+
+\listoffigures 
+\listoftables
+\tableofcontents 
+
+\input introduction.tex
+\input relatedwork.tex
+\input method.tex
+\input implementation.tex
+\input evaluation.tex
+\input conclusion.tex
+
+
+\bibliographystyle{socreport}
+\bibliography{UROP}
+
+\appendix
+\input mlevalresults.tex
+
+
+\end{document}
