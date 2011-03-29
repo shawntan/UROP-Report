@@ -105,20 +105,21 @@ the small Javascript application.
  using the extractor. Also, the page has a linked RSS feed that the user can subscribe to.
  
  It is at this page that the user is able to do a test run of the extractor. Once satisfactory,
- the user can then set a daily time for the data to be extracted. 
+ the user can then set a daily time for the data to be extracted.
+ 
 
 \section{Machine Learning Component}
-Once the XPath is sent from the bookmarklet back to the server-side application and inserted
-into the database, the user then has the option to test his/her created extractor. Once the
-user selects this option the machine-learning component visits the new page inserted, and
-crawls within the domain for similar pages. In this context, similar pages refer to HTML
-documents that return results, of any number, when a query is made using any of the previously
-labelled XPaths. 
+After the user clicks on ``Extract now" or when the extractor is scheduled to be executed, the
+machine learning component will retrieve the relevant pages and extract the data using the
+extractor's XPath. Using this set of data, it will then proceed to retrieve more similar pages
+with the method described in the previous chapter.
 
-\input{machinelearningworkflow}
+This process is meant to be transparent to the user, so the user should not have to make
+any changes to his configured extractor. The extractor should then work even though a layout 
+change has occurred.
+
+\input{machinelearningworkflow}%redo this again
 
 	The extracted data is inserted back into the database, and then made available to the user.
 At the same time, features are extracted from this data in order to create a model for
-extraction for future use.
-	
-	
+extraction for future use. 
