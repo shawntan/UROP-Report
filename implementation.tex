@@ -75,6 +75,38 @@ hidden form elements within the interface to send POST requests back to the serv
 fetched by inserting script tags and callbacks to allow the JSON objects to be passed back into
 the small Javascript application.
 
+\section{Web Application}
+ In our system, the user is aware of only creating \textbf{extractors}. In each of these
+ \textbf{extractors}, there is a set of \textbf{labels} and a set of \textbf{pages} that the
+ user has selected for extraction by activating the bookmarklet on the pages that he/she
+ wanted. The web application we have developed aims to provide the user a way to modify and
+ manipulate the concepts we have mentioned.
+ 
+ \subsection{Extractor list}
+ %screenshot of the extractor list, or the dashboard or whatever the hell it should be
+ %called.
+ 
+ Figure %REF!
+ shows a screenshot of the user's dashboard. This is the first page the user sees after he or
+ she has logged in. The page lists the various extractors that the user has created, and the 
+ user is able to delete them or view the extractors in greater detail by clicking ``View".
+ 
+ \subsection{Viewing the extractor}
+  %screenshot of the detailed extractor view with the individual items labelled
+ The detailed view of the extractor shows several items:
+ \begin{enumerate}
+ 	\item List of the labels, together with their corresponding XPath.
+ 	We have chosen to supply the generated XPath in the page for the benefit
+	of users who are familiar with writing screen-scrapers.
+ 	\item The list of pages that the labels will be applied on.
+ 	\item The latest list of data extracted from the data, if it exists.
+ \end{enumerate}
+ The user is, again, able to delete any labels or pages that he/she no longer wishes to extract
+ using the extractor. Also, the page has a linked RSS feed that the user can subscribe to.
+ 
+ It is at this page that the user is able to do a test run of the extractor. Once satisfactory,
+ the user can then set a daily time for the data to be extracted. 
+
 \section{Machine Learning Component}
 Once the XPath is sent from the bookmarklet back to the server-side application and inserted
 into the database, the user then has the option to test his/her created extractor. Once the
