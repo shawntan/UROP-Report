@@ -1,3 +1,30 @@
 \chapter{Evaluation}
 
-For the evaluation of this part of the system, a group of 30 students were paid to do a simple 30 minute evaluation of the system. A simple tutorial was given to each of the students, and once completed, a simple extraction task from the bookdepository.co.uk website was to be carried out. Lastly, the students were asked to fill out a questionnaire on the following aspects of the system: Ease of installation of the bookmarklet, the ease of item selection, and the ease with which they could view the extracted items.
+We have divided the evaluation of our system into 2 important sections. The selection interface
+deals with a more subjective topic, since its performance is dependent on how easy users find 
+selecting items for extraction is. For this component of the system, we are doing a human
+evaluation on the qualitative performance of the system. In the second section, we will describe
+the evaluation of the machine learning technique we have used, and how well this performs when
+attempting to extract data from a webpage after a layout change.
+
+\section{Human evaluation of Selection Interface}
+
+For the evaluation of this part of the system, a group of 30 students were paid to do a simple 30
+minute evaluation of the system. A simple tutorial was given to each of the students, and once
+completed, a simple extraction task from the bookdepository.co.uk website was to be carried out.
+Lastly, the students were asked to fill out a questionnaire on the following aspects of the
+system: Ease of installation of the bookmarklet, the ease of item selection, and the ease with
+which they could view the extracted items.
+\subsection{Analysis}
+
+\section{Machine Learning evaluation}
+ We want to be able to extract the same content from pages which have had a layout change. So our
+ , evaluation method involves attempting to extract data after a layout change by training a
+ classifier for this one.
+ 
+ We have decided to use old pages from web.internet.org to simulate old pages that have not
+ undergone 
+ a layout change. We created 5 sets of 10 pages from the pages retrieved from web then trained 
+ the classifier on each of these. The test results were then compared to the data extracted if an
+ XPath was created manually for each of these sets.
+\subsection{Analysis} 

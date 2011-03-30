@@ -1,5 +1,5 @@
 \chapter{Implementation}
-
+\label{chap:implementation}
 This chapter details the implementation of the methods mentioned before into a working system.
 The system consists of 3 main components, the architecture is depicted in Figure \ref{fig:systemarchitecture}.
 The components shown are the following:
@@ -83,17 +83,29 @@ the small Javascript application.
  manipulate the concepts we have mentioned.
  
  \subsection{Extractor list}
- %screenshot of the extractor list, or the dashboard or whatever the hell it should be
- %called.
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.43]{dashboard.png} 
+\caption{Dashboard screenshot}
+\label{fig:dashboard}
+\end{figure}
+
  
- Figure %REF!
+ Figure \ref{fig:dashboard}
  shows a screenshot of the user's dashboard. This is the first page the user sees after he or
  she has logged in. The page lists the various extractors that the user has created, and the 
  user is able to delete them or view the extractors in greater detail by clicking ``View".
  
  \subsection{Viewing the extractor}
-  %screenshot of the detailed extractor view with the individual items labelled
- The detailed view of the extractor shows several items:
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.5]{extractorview.png} 
+\caption{Extractor view}
+\label{fig:extractorview}
+\end{figure}
+ The detailed view of the extractor shows several items,
+  which can be seen in Figure \ref{fig:extractorview}:
  \begin{enumerate}
  	\item List of the labels, together with their corresponding XPath.
  	We have chosen to supply the generated XPath in the page for the benefit
