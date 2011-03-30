@@ -1,5 +1,15 @@
-\chapter{Implementation}
+\chapter{The grab\textit{smart} System}
 \label{chap:implementation}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.43]{implementation.png} 
+\caption{Overall system architecture}
+\label{fig:systemarchitecture}
+\end{figure}
+
+
+\label{chap:selection}
 This chapter details the implementation of the methods mentioned before into a working system.
 The system consists of 3 main components, the architecture is depicted in Figure \ref{fig:systemarchitecture}.
 The components shown are the following:
@@ -14,16 +24,8 @@ The components shown are the following:
 	This is the component that creates a classification model based on the generated XPath and the pages selected to be extracted from.
 \end{enumerate}
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[scale=0.43]{implementation.png} 
-\caption{Overall system architecture}
-\label{fig:systemarchitecture}
-\end{figure}
 
 \section{Selection Interface}
-\label{chap:selection}
-
 The selection interface described in this section aims to provide visual feedback to the user
 when building a suitable wrapper for the page chosen by the user. The interface is implemented
 in the form of a bookmarklet which the user simply has to drag and drop into his/her browser
