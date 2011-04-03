@@ -7,6 +7,8 @@ evaluation on the qualitative performance of the system. In the second section, 
 the evaluation of the machine learning technique we have used, and how well this performs when
 attempting to extract data from a webpage after a layout change.
 
+
+
 \section{Human evaluation of Selection Interface}
 
 For the evaluation of this part of the system, a group of 30 students were paid to do a simple 30
@@ -14,17 +16,64 @@ minute evaluation of the system. A simple tutorial was given to each of the stud
 completed, a simple extraction task from the bookdepository.co.uk website was to be carried out.
 Lastly, the students were asked to fill out a questionnaire on the following aspects of the
 system: Ease of installation of the bookmarklet, the ease of item selection, and the ease with
-which they could view the extracted items.
+which they could view the extracted items. The full content of the entire survey can be found in
+the appendix, along with the survey results.
+
+The students were from various tertiary institutions in Singapore, and were given a small sum of
+money for their time.
 \subsection{Analysis}
+The participants were asked to rank the ease of use for the installation of the bookmarklet on
+a scale of 1 to 5. On the average, the score was .... The installation procedure was meant to
+be simple and easy: Dragging the button from the page to the toolbar. However, some of the 
+participants had an issue with this since some browsers, for example Chrome, do not show their
+toolbars by default.
+
+\begin{figure}
+\textit{
+``I think that should be the most simple way to install a bookmarklet. 
+I think you should consider the case when the bookmark toolbar is hidden,
+and if it's possible, show a tutorial video for beginner.''}
+\end{figure}
+
+On the intuitiveness of the selection procedure, the average score was .....
+Some of the participants found the interface for modifying existing labels confusing,
+while some had issues when trying to select elements ``behind" its child elements.
+
+About 75\% of the participants found the visual feedback for the selection procedure useful
+in understanding what the extractor would be extracting. 
+
+Viewing the extracted data seemed to be a problem for many of the participants. The average
+score given for the ease of viewing extracted data was at ...... This may be due to the way
+in which the page is updated after the data has been extracted and inserted into the database.
+
+In general, we find that the selection interface has been successful in its task: Aiding in 
+the process of annotation by giving visual feedback.
 
 \section{Machine Learning evaluation}
  We want to be able to extract the same content from pages which have had a layout change. So our
- , evaluation method involves attempting to extract data after a layout change by training a
- classifier for this one.
+ evaluation method involves attempting to extract data after a layout change by training a
+ classifier for the previous.
+\subsection{Methodology}
+ We have adopted a similar evaluation to that of \cite{Dalvi2009}, with slight modifications.
+ Since our system only uses the learnt models when the layout of the page changes (which is 
+ detected when the XPath does not retrieve any items), we have restricted the evaluation of 
+ the learnt models between layout changes.
+	 We have decided to use old pages from web.archive.org to simulate old pages that have not
+ undergone a layout change. To define a layout change, we use the tree-edit distance \cite{Zhang1989} between 2 pages as
+a simple metric. In order to find layout changes within the list of pages we retrieved from Web
+Archive, we took the tree-edit distance of the DOM tree between every pair of consecutive pages.
+The graph of these values is shown in Figure...%INSERT FIGURE!!!
+
+	The spikes visible in the graph were signals of a high tree-edit distance between the pairs
+of pages, and signals some sort of layout change. What we are looking for, however, are changes
+in which the XPaths fail to work. For each of the labels we are hoping to extract, we check the
+if the application of the XPath yields any resulting DOM nodes. If they do not, the page was
+considered a layout change, and the pages prior the change were randomly sampled for 10 instances
+for learning.
+
+	 We created 5 sets of 10 pages from the pages retrieved from web
+ then trained the classifier on each of these. The test results were then compared to the data
+ extracted if an XPath was created manually for each of these sets.
  
- We have decided to use old pages from web.internet.org to simulate old pages that have not
- undergone 
- a layout change. We created 5 sets of 10 pages from the pages retrieved from web then trained 
- the classifier on each of these. The test results were then compared to the data extracted if an
- XPath was created manually for each of these sets.
+ 
 \subsection{Analysis} 

@@ -9,7 +9,7 @@ learning) \cite{Freitag1998,Soderland}. Subsequently, from 2001, systems that re
 intervention were developed \cite{Chang2001,Crescenzi2002,Arasu2003}. This suggests a trend
 toward information extraction systems with less human interaction.
 \section{Visual feedback for User annotation}
-However, IE systems cannot completely be free of user intervention. ``Supervised approaches,
+IE systems cannot completely be free of user intervention: ``Supervised approaches,
 although require annotation from users, extend well to non-template page extraction if proper
 features are selected for extraction rules" \cite{Kayed2006}. Since user annotation is crucial
 to web IE, it is important to improve current user interfaces for labelling. Attempts such as
@@ -41,6 +41,17 @@ process requires the user to define the ``flow" of the extraction.
 \label{fig:lixto}
 \end{figure}
 
+In our proposed system, grabsmart, we aim to provide a system which allows users to have a
+sense of what will be extracted, with the added advantage of keeping the installation process
+simple by introducing this to the user in the form of a bookmarklet, so that all that is needed
+is a drag-and-drop action.
+
+We have identified XPath as a suitable format to query the selected pages for extraction,
+due to its widespread use\footnote{Implementations of Javascript in most browsers have
+a native API for querying using XPath}, so by being able to generate XPath queries,
+we are also able to provide a way for writers of their own scrapers to do so more easily.
+
+
 \section{Generation of XPath for wrappers}
 XPath is a powerful query language commonly used for selecting particular elements in XML
 documents. Recently, many scrapers are using XPath as a method of retrieving the relevant
@@ -55,7 +66,7 @@ Methods are available to automate the creation of these XPath queries. A method 
 XPaths is described in \cite{Anton2004}. The approach models the DOM Tree as a traversal graph,
 and uses this to try to create an XPath that gets the wanted elements for all pages it is given.
 
-Later, \cite{Dalvi2009} explored the approach of developing a tree-edit model of HTML,
+Later,  Dalvi, Bohannon, \& Sha (2009) explored the approach of developing a tree-edit model of HTML,
 modelling changes to a page as a stochastic process, using it to improve wrapper construction
 for robustness. The method generates a list of candidate XPaths for a certain selected region
 within the page. It used archived data of a given website to calculate its \textit{compute
@@ -65,6 +76,10 @@ methods of XPath generation do are not immediate, and, for the most part, does n
 lot of input from the user, but the drawback of that would be that the user is unaware of what
 will be extracted until he/she sees the extracted results.
 
+In contrast, our system trades the robustness of the XPath
+query with the speed of generation. Our proposed system will be able to create, and display
+elements on the page that will be extracted as the user is selecting items.
+
 \section{Robust wrappers}
 Another problem faced when trying to automate web IE is having to regenerate or re-implement
 the wrapper every time there is a change in the site layout. This is an important problem given
@@ -72,24 +87,24 @@ the ease in which templating systems allow pages to be ``themed" and redesigned.
 to be robust enough to handle such frequent changes, and be less reliant on the underlying HTML
 structure of the page.
 	
-One method of approaching this was to make use of the visual features of the page. The PARCELS
+One method of approaching this was to make use of the visual features of the page. The PARCELS \cite{Lee2004}
 system is not strictly an information extraction system, but rather, is concerned with dividing
 up the page and classifying the resulting blocks correctly. As input, the user is required to
 input several example pages with labelled blocks as examples. The system then extracts features
 from 2 different aspects of the blocks: Its \textit{lexical} features and its
 \textit{stylistic} features. Using both of these the classifier uses a technique called
 co-training, machine classified blocks from either view is fed into the training data of the
-other view\cite{Lee2004}. The system was then improved to include usage of inter and intra
+other view. The system was then improved to include usage of inter and intra
 similarities between pages as features\cite{AikMiang2005}. Gatterbauer also approached the
 problem of extracting data from web tables by looking directly at the rendered 2D output,
 extracting tables (or grids) within them, and then analysing these in order to extract relevant
 information \cite{Gatterbauer2007}.
 
-
+\section{Conclusion}
 
 
 After studying the drawbacks and advantages of some of the previous work in the area, I hope to
-make 2 main contributions with my system:
+make two main contributions with my system:
 \begin{enumerate}
 	\item Provide an intuitive interface for labelling that is platform agnostic, and takes advantage of the many advancements in Javascript. This will provide the user with an immediate visual feedback as to the items that he/she will be extracting, and at the same time reduce the amount of labelling that needs to be done.
 	\item Create a more robust framework for extraction of the selected information using machine learning. The classifier will have less focus on the HTML structural information of the tags in order to be resistant to any layout changes made to the page.

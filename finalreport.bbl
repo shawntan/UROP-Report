@@ -5,15 +5,13 @@ Anton, T. (2005).
 \newblock {XPath-Wrapper Induction by generalizing tree traversal patterns}.
 \newblock {\em Lernen, Wissensentdeckung und Adaptivitt (LWA)}, (3), 2005.
 
-\bibitem[\protect\citename{Arasu}{}{Garcia-Molina}{Arasu-Garcia-Molina}{2003}{%
-Arasu2003}]{Arasu2003}
+\bibitem[\protect\citename{Arasu}{}{Garcia-Molina}{Arasu-Garcia-Molina}{2003}{Arasu2003}]{Arasu2003}
 Arasu, A., \& Garcia-Molina, H. (2003).
 \newblock {Extracting structured data from Web pages}.
 \newblock {\em Proceedings of the 2003 ACM SIGMOD international conference on
   on Management of data - SIGMOD '03}, , 2003, 337.
 
-\bibitem[\protect\citename{Baumgartner}{Flesca}{Gottlob}{BaumgartnerETAL}{2001%
-}{Baumgartner2001}]{Baumgartner2001}
+\bibitem[\protect\citename{Baumgartner}{Flesca}{Gottlob}{BaumgartnerETAL}{2001}{Baumgartner2001}]{Baumgartner2001}
 Baumgartner, R., Flesca, S., \& Gottlob, G. (2001).
 \newblock {Visual Web Information Extraction with Lixto}.
 \newblock {\em Proceedings of the 27th VLDB Conference}, , 2001.
@@ -25,8 +23,7 @@ Chang, C.-H., Kayed, M., Girgis, M.~R., \& Shaalan, K.~F. (2006).
 \newblock {\em IEEE Transactions on Knowledge and Data Engineering}, {\em
   18\/}(10), October, 2006, 1411--1428.
 
-\bibitem[\protect\citename{Chang}{}{Lui}{Chang-Lui}{2001}{Chang2001}]{Chang200%
-1}
+\bibitem[\protect\citename{Chang}{}{Lui}{Chang-Lui}{2001}{Chang2001}]{Chang2001}
 Chang, C.-h., \& Lui, S.-C. (2001).
 \newblock {IEPAD : Information Extraction Based on Pattern Discovery}.
 \newblock {\em Proceedings of the 10th international conference on World Wide
@@ -39,23 +36,20 @@ Chawathe, S., Garcia-Molina, H., Hammer, J., \& K (1994).
   sources}.
 \newblock {\em Proceedings of IPSJ}, , 1994, 1--12.
 
-\bibitem[\protect\citename{Crescenzi}{Mecca}{Merialdo}{CrescenziETAL}{2002}{Cr%
-escenzi2002}]{Crescenzi2002}
+\bibitem[\protect\citename{Crescenzi}{Mecca}{Merialdo}{CrescenziETAL}{2002}{Crescenzi2002}]{Crescenzi2002}
 Crescenzi, V., Mecca, G., \& Merialdo, P. (2002).
 \newblock {RoadRunner : Towards Automatic Data Extraction from Large Web
   Sites}.
 \newblock {\em Proceedings of the 27th VLDB Conference}, , 2002.
 
-\bibitem[\protect\citename{Dalvi}{Bohannon}{Sha}{DalviETAL}{2009}{Dalvi2009}]{%
-Dalvi2009}
+\bibitem[\protect\citename{Dalvi}{Bohannon}{Sha}{DalviETAL}{2009}{Dalvi2009}]{Dalvi2009}
 Dalvi, N., Bohannon, P., \& Sha, F. (2009).
 \newblock {Robust web extraction: an approach based on a probabilistic
   tree-edit model}.
 \newblock {\em Proceedings of the 35th SIGMOD international conference on
   Management of data} (pp.\ 335--348), 2009: ACM.
 
-\bibitem[\protect\citename{Freitag}{}{}{Freitag}{1998}{Freitag1998}]{Freitag19%
-98}
+\bibitem[\protect\citename{Freitag}{}{}{Freitag}{1998}{Freitag1998}]{Freitag1998}
 Freitag, D. (1998).
 \newblock {Information Extraction from HTML : Application of a General Machine
   Learning Approach Extraction as Text Classi cation}.
@@ -67,8 +61,7 @@ Gatterbauer, W., Bohunsky, P., Herzog, M., Kr\"{u}pl, B., \& Pollak, B. (2007).
 \newblock {Towards domain-independent information extraction from web tables}
   (pp.\ 71--80), Banff, Alberta, Canada, 2007: ACM.
 
-\bibitem[\protect\citename{Kushmerick}{Weld}{Doorenbos}{KushmerickETAL}{1997}{%
-Kushmerick1997}]{Kushmerick1997}
+\bibitem[\protect\citename{Kushmerick}{Weld}{Doorenbos}{KushmerickETAL}{1997}{Kushmerick1997}]{Kushmerick1997}
 Kushmerick, N., Weld, D., \& Doorenbos, R. (1997).
 \newblock {Wrapper induction for information extraction}.
 
@@ -87,20 +80,30 @@ Lee, C.~H., Kan, M.-Y., \& Lai, S. (2004).
 \newblock {\em Proceedings of the 6th annual ACM international workshop on Web
   information and data management - WIDM '04}, , 2004, 136.
 
-\bibitem[\protect\citename{Perkowitz}{}{Etzioni}{Perkowitz-Etzioni}{1995}{Perk%
-owitz1995}]{Perkowitz1995}
+\bibitem[\protect\citename{Needleman}{}{Wunsch}{Needleman-Wunsch}{1970}{Needleman1970}]{Needleman1970}
+Needleman, S., \& Wunsch, C. (1970).
+\newblock {A general method applicable to the search for similarities in the
+  amino acid sequence of two proteins}.
+\newblock {\em Journal of molecular biology}, {\em 48\/}(3), 1970, 443--453.
+
+\bibitem[\protect\citename{Perkowitz}{}{Etzioni}{Perkowitz-Etzioni}{1995}{Perkowitz1995}]{Perkowitz1995}
 Perkowitz, M., \& Etzioni, O. (1995).
 \newblock {Category translation: Learning to understand information on the
   internet}.
 \newblock {\em International Joint Conference on Artificial Intelligence},
   Vol.~14 (pp.\ 930--938), 1995: Citeseer.
 
-\bibitem[\protect\citename{Soderland}{}{}{Soderland}{1999}{Soderland}]{Soderla%
-nd}
+\bibitem[\protect\citename{Soderland}{}{}{Soderland}{1999}{Soderland}]{Soderland}
 Soderland, S. (1999).
 \newblock {Learning Information Extraction Rules for Semi-structured and Free
   Text}.
 \newblock {\em World Wide Web Internet And Web Information Systems}, {\em
   44\/}, 1999, 1--44.
+
+\bibitem[\protect\citename{Zhang}{}{Shasha}{Zhang-Shasha}{1989}{Zhang1989}]{Zhang1989}
+Zhang, K., \& Shasha, D. (1989).
+\newblock {Simple fast algorithms for the editing distance between trees and
+  related problems}.
+\newblock {\em SIAM J. Comput.}, {\em 18\/}(6), 1989, 1245--1262.
 
 \end{thebibliography}

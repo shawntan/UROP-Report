@@ -1,7 +1,14 @@
 \chapter{Method}
 \label{chap:method}
-In the following sections, we will elaborate on the contributions of this report, namely the
-traversal path alignment algorithm, the framework for learning models for classification of
-DOM nodes, and the features used. 
+In the following sections, we will elaborate on the contributions of this report.
+In the first section we will describe traversal path alignment algorithm, which we
+propose to overcome the issues of current methods of XPath generation by providing
+a way to create viable XPaths based on elements that users have selected or rejected,
+giving them a visual understanding of what will be extracted as they complete the process.
+
+Next, we address the approach we take in trying to create a robust wrapper for the site.
+We propose a framework for learning models for classification of HTML tags or DOM nodes by
+learning from extracted instances using the XPath.
+
 \input selectioninterface.tex
 \input robustextraction.tex

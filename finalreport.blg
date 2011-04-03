@@ -1,4 +1,5 @@
-This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2010/Arch Linux)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: finalreport.aux
 The style file: socreport.bst
 Database file #1: UROP.bib
@@ -27,50 +28,54 @@ while executing---line 1367 of file socreport.bst
 while executing---line 1367 of file socreport.bst
 `month' is a missing field, not a string, for entry Lee2004
 while executing---line 1367 of file socreport.bst
+`month' is a missing field, not a string, for entry Needleman1970
+while executing---line 1367 of file socreport.bst
 Warning--empty address in Perkowitz1995
 `month' is a missing field, not a string, for entry Perkowitz1995
 while executing---line 1367 of file socreport.bst
 `month' is a missing field, not a string, for entry Soderland
 while executing---line 1367 of file socreport.bst
-You've used 15 entries,
+`month' is a missing field, not a string, for entry Zhang1989
+while executing---line 1367 of file socreport.bst
+You've used 17 entries,
             2653 wiz_defined-function locations,
-            670 strings with 7438 characters,
-and the built_in function-call counts, 7065 in all, are:
-= -- 695
-> -- 327
-< -- 11
-+ -- 119
-- -- 119
-* -- 639
-:= -- 1240
-add.period$ -- 43
-call.type$ -- 15
-change.case$ -- 113
-chr.to.int$ -- 15
-cite$ -- 34
-duplicate$ -- 228
-empty$ -- 456
-format.name$ -- 135
-if$ -- 1375
+            687 strings with 7815 characters,
+and the built_in function-call counts, 8035 in all, are:
+= -- 797
+> -- 361
+< -- 13
++ -- 129
+- -- 129
+* -- 743
+:= -- 1396
+add.period$ -- 49
+call.type$ -- 17
+change.case$ -- 127
+chr.to.int$ -- 17
+cite$ -- 38
+duplicate$ -- 256
+empty$ -- 526
+format.name$ -- 153
+if$ -- 1567
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 14
-newline$ -- 76
-num.names$ -- 94
-pop$ -- 121
+missing$ -- 16
+newline$ -- 86
+num.names$ -- 106
+pop$ -- 133
 preamble$ -- 1
-purify$ -- 113
+purify$ -- 127
 quote$ -- 0
-skip$ -- 225
+skip$ -- 249
 stack$ -- 0
-substring$ -- 359
-swap$ -- 41
+substring$ -- 437
+swap$ -- 45
 text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 135
+type$ -- 153
 warning$ -- 4
-while$ -- 68
+while$ -- 78
 width$ -- 0
-write$ -- 245
-(There were 13 error messages)
+write$ -- 277
+(There were 15 error messages)

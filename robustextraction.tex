@@ -1,14 +1,20 @@
 \section{Robust Extraction}
 \label{section:extraction}
-The above method enables us to generate a fixed rule (XPath) to extract data from the given pages. However, XPath is heavily reliant on the structure of the DOM page in its present form: Any element extracted is defined by its ancestor nodes and their attributes. Once this is changed, which is likely due to a layout change, the same XPath may no longer be applicable to the current page. 
+The PTA algorithm enables us to generate a fixed rule (XPath) to extract data from the given pages.
+However, XPath is heavily reliant on the structure of the DOM page in its present form: Any element
+extracted is defined by its ancestor nodes and their attributes. Once this is changed, which is
+likely due to a layout change, the same XPath may no longer be applicable to the current page. 
 
-In order to be able to extract data even after a change in layout, another method of extraction without the use of XPath is required. Our approach for this system uses a machine learned model. The rest of the chapter elaborates on the details of the implementation.
+In order to be able to extract data even after a change in layout, another method of extraction
+without the use of XPath is required. Our approach for this system uses a machine learned model.
+The rest of the chapter elaborates on the details of the implementation.
 
-In our framework, we use the provided XPaths together with the URLs of the pages to be extracted as annotated documents. Each node in the DOM is treated as a separate instance, and labelled based on the XPath it was extracted by. The XPaths are assumed to be mutually exclusive. We have chosen to use decision trees because the generated models are small, and can be easily interpreted. The generation of these models are also relatively faster than other classification models. Since CPU time and memory space are constrained resources, decision trees were suitable for our needs.
-
-
-
-In order to be able to extract data even after a change in layout, another method of extraction without the use of XPath is required. Our approach for this system uses a machine learned model. The rest of the chapter elaborates on the details of the implementation.
+In our framework, we use the provided XPaths together with the URLs of the pages to be extracted
+as annotated documents. Each node in the DOM is treated as a separate instance, and labelled
+based on the XPath it was extracted by. The XPaths are assumed to be mutually exclusive. We have
+chosen to use decision trees because the generated models are small, and can be easily interpreted.
+The generation of these models are also relatively faster than other classification models. Since
+CPU time and memory space are constrained resources, decision trees were suitable for our needs.
 
 	
 Looking at any web information extraction system using machine learning classification techniques, the workflow of a user can be generalised into the following steps:
@@ -36,10 +42,16 @@ To keep the model more robust and resistant to layout changes on the original si
 	
 	%need to run more tests on SVMs and dec trees
 	
-	For subsequent extractions, the server will first use the available XPath for extraction from the site. If the XPath rule fails to find elements for extraction, the learnt classification model is used. Figure \ref{fig:decisiontree} shows a decision tree when the process is run on a Google search result with the result entries selected for extraction.
-	\input{dectree}
+	For subsequent extractions, the server will first use the available XPath for extraction from the site.
+	If the XPath rule fails to find elements for extraction, the learnt classification model is used. Figure
+	\ref{fig:decisiontree} shows a decision tree when the process is run on a Google search result with the
+	result entries selected for extraction.
+
+\input{dectree}
 	
-	As we can see, the generated decision tree seems pretty reasonable given a Google search result. The \url{parent.}	prefix is the equivalent to the statement ``if the parent of the element". We can see that the generated tree is looking for elements with parents that are headers and contain 2 or more words.
+	As we can see, the generated decision tree seems pretty reasonable given a Google search result. The
+	\url{parent.}	prefix is the equivalent to the statement ``if the parent of the element". We can see
+	that the generated tree is looking for elements with parents that are headers and contain 2 or more words.
 	
 \subsection{Crawling for more instances}
 	We found that many annotations capture very few elements per page when compared to the total number of elements for that page. By attempting to balance the number of elements that belong to labels with those that were not captured by any XPath, we hoped to improve the performance of the classifier. However, this still yielded relatively poor results. Eventually, we crawled the site for other pages which had elements captured by the same set of XPaths. This gave us more instances to train the classifier on, and gave better results.
@@ -47,9 +59,17 @@ To keep the model more robust and resistant to layout changes on the original si
 The crawler starts with a given set of pages, and crawls links with URLs similar to the given pages. The similarity score is given by the edit distance between the link URL and the URL of the wanted pages. A heap is used to store the seen links, and the most similar URL selected at every round. The crawler stops when it has collected a fixed number of instances, which is now set at 500.
 	
 \subsection{Limitations}
-In Weka's implementation of their machine learning algorithms, the serialised models created tend to store all attributes and their values. Due to this, some of the models are really large, with a lot of redundant data. This takes up much I/O time and storage space on the server.
+In Weka's implementation of their machine learning algorithms, the serialised models created
+tend to store all attributes and their values. Due to this, some of the models are really large,
+with a lot of redundant data. This takes up much I/O time and storage space on the server. However,
+in comparison with the implementations of the other classification methods in the Weka 
+library, the decision tree classifier does perform better than the other classifiers in terms
+of runtime and model size. A decision tree classifier optimised specifically for the system
+was not implemented due to time constraints.
 
-Also, from our tests, the learnt model does better on heading-type results, while other fields tend to have a low precision score, we will discuss the evaluation results in detail in Chapter 4.
+Also, from our tests, the learnt model does better on heading-type results, while other
+fields tend to have a low precision score, we will discuss the evaluation results in detail
+in Chapter 4.
 	
 	
 
