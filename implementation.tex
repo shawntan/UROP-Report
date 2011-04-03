@@ -24,12 +24,16 @@ The components shown are the following:
 	This is the component that creates a classification model based on the generated XPath and the pages selected to be extracted from.
 \end{enumerate}
 
+We intend to introduce this system with the following scenario: John wants to be informed of 
+the latest books about information extraction on bookdelivery.co.uk. In the subsequent sections
+we will describe John's workflow, and how the methods described in Chapter \ref{chap:method} 
+fit into the overall system.
 
 \section{Selection Interface}
 The selection interface described in this section aims to provide visual feedback to the user
 when building a suitable wrapper for the page chosen by the user. The interface is implemented
-in the form of a bookmarklet which the user simply has to drag and drop into his/her browser
-toolbar. This bookmarklet can then be activated when the user reaches a page which he/she wants
+in the form of a bookmarklet which John simply has to drag and drop into his browser
+toolbar. This bookmarklet can then be activated when the he arrives at a page which he/she wants
 to have something extracted. Clicking on items will select them in green, and subsequent clicking
 will expand the scope of the extraction, with the items to be extracted highlighted in yellow.
 Figure \ref{fig:selection_example} shows a screenshot of a search result in bookdepository.co.uk
@@ -50,13 +54,19 @@ the bookmarklet attempts to generalise an XPath that captures the selected eleme
 and also elements on the page with similar characteristics, like class names and position
 within the parent tag.
 
-%have a loopy diagram to show the iterative work between user and algo.
 
 The process is an iterative one. When the user clicks on a new element on the page,
-the XPath is recalculated, and then used to highlight the captured items on the page.
+the XPath is recalculated using the TPA algorithm, and then used to highlight the captured items on the page.
 This way, the user understands the changes he/she has made to the extraction scope as he/she
 clicks on additional items. The user is then able to perform this task for any number of labels
 the user thinks is appropriate for the extractor he/she is creating.
+
+In this case, John navigates to the search results for ``Information Extraction"
+on bookdepository.co.uk, and activates the bookmarklet. He then selects the first
+two book titles and the selection interface automatically highlights all the other
+titles on the page in yellow. This means that the items will be extracted once the
+extractor is activated. He then saves this label, then does the same for the prices.
+
 
 \subsection{Engineering challenges}
 
@@ -78,12 +88,17 @@ fetched by inserting script tags and callbacks to allow the JSON objects to be p
 the small Javascript application.
 
 \section{Web Application}
- In our system, the user is aware of only creating \textbf{extractors}. In each of these
- \textbf{extractors}, there is a set of \textbf{labels} and a set of \textbf{pages} that the
- user has selected for extraction by activating the bookmarklet on the pages that he/she
- wanted. The web application we have developed aims to provide the user a way to modify and
+
+In order to extract data from bookdepository.co.uk, John would have to create a new 
+\textbf{extractor}. This can be done through the bookmarklet when he is at the page 
+he wishes to capture. Once he starts selecting items to capture at a given page,
+he would have created a new \textbf{page} that the extractor is required to extract.
+Once he is done with a capture region, this would be saved under the extractor as a
+new \textbf{label}. 
+
+The web application we have developed aims to provide the user a way to modify and
  manipulate the concepts we have mentioned.
- 
+
  \subsection{Extractor list}
 \begin{figure}[htbp]
 \centering
@@ -94,9 +109,9 @@ the small Javascript application.
 
  
  Figure \ref{fig:dashboard}
- shows a screenshot of the user's dashboard. This is the first page the user sees after he or
- she has logged in. The page lists the various extractors that the user has created, and the 
- user is able to delete them or view the extractors in greater detail by clicking ``View".
+ shows a screenshot of the user's dashboard. This is the first page that John sees
+ after he has logged in. The page lists the various extractors that he has created, and 
+ he is able to delete them or view the extractors in greater detail by clicking ``View".
  
  \subsection{Viewing the extractor}
 
@@ -115,15 +130,16 @@ the small Javascript application.
  	\item The list of pages that the labels will be applied on.
  	\item The latest list of data extracted from the data, if it exists.
  \end{enumerate}
- The user is, again, able to delete any labels or pages that he/she no longer wishes to extract
+ John is, again, able to delete any labels or pages that he no longer wishes to extract
  using the extractor. Also, the page has a linked RSS feed that the user can subscribe to.
  
- It is at this page that the user is able to do a test run of the extractor. Once satisfactory,
- the user can then set a daily time for the data to be extracted.
+ It is at this page that the John is able to do a test run of the extractor. Once satisfactory,
+ he can then set a daily time for the data to be extracted.
  
-
+ Once John has arrived at this point, his extractor is now in place to provide him updates
+ via RSS daily.
 \section{Machine Learning Component}
-After the user clicks on ``Extract now" or when the extractor is scheduled to be executed, the
+After John clicks on ``Extract now" or when the extractor is scheduled to be executed, the
 machine learning component will retrieve the relevant pages and extract the data using the
 extractor's XPath. Using this set of data, it will then proceed to retrieve more similar pages
 with the method described in the previous chapter.
@@ -136,4 +152,5 @@ change has occurred.
 
 	The extracted data is inserted back into the database, and then made available to the user.
 At the same time, features are extracted from this data in order to create a model for
-extraction for future use. 
+extraction for future use.  For John, the process takes place completely in the background.
+When the layout of bookdepository.co.uk changes, the same data is still expected to be extracted.
