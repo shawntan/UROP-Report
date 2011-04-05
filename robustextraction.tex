@@ -22,9 +22,12 @@ Looking at any web information extraction system using machine learning classifi
 	\item The user finds a page or site that he/she would like information to be mined from.
 	\item Samples of the page presented to the user for labelling. Positive examples are selected and these are fed into the machine learner to create a model.
 	\item Using this model, data is extracted from similar pages, this data is then put into storage (e.g. database)
-	\item Some systems repeat steps 2 and 3 iteratively until an accurate model is achieved.
+	\item Some systems repeat steps 2 and 3 iteratively until an accurate model is achieved. \label{repeatstep}
 	\item The user can then access the data storage for the mined information.
 \end{enumerate}
+
+Our system follows the same workflow, except for step \ref{repeatstep}. We will elaborate further
+how the machine learning component fits into the entire picture in \ref{chap:implementation}.
 
 \subsection{Features used}
 To keep the model more robust and resistant to layout changes on the original site, content features are extracted in order to use less of the HTML structure for extraction. In this system, a J48 decision tree classifier is used. Positive examples of HTML elements are those returned when the XPath is applied to the given page. The following features are extracted:

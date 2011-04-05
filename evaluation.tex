@@ -110,8 +110,16 @@ then trained the classifier on each of these. The test results were then compare
 extracted if an XPath was created manually for each of these sets.
  
  
-\subsection{Analysis} 
-	We have adopted an evaluation method similar to that of Dalvi, Bohannon, \& Sha (2009).
+\subsection{Analysis}
+	The results of our method of evaluation is shown in Figure \ref{tab:mlevalresults} on page
+\pageref{tab:mlevalresults}. The performance of the learnt model between batches is pretty poor.
+Aside from the first layout change, the other layout changes sometimes do not extract anything
+at all. This is probably due to the fact that Digg underwent a significant layout change that
+rearranged the locations of the individual items within each entry, rendering the model learnt
+useless.
+	
+	While the machine classification has performed poorly, this method of evaluation is far
+stricter than the evaluation of robustness found in Dalvi, Bohannon, \& Sha (2009).
 We differ from their evaluation methods in the choosing of test corpus. In their testing
 set of pages, they have used 3 pages for learning, while testing their wrapper on 15 pages,
 each 2 months apart, without taking into account if the pages have a change in layout.
@@ -134,6 +142,7 @@ with 2 month intervals. We then calculated the accuracy of the extractor in the 
 \begin{table}
 \centering
 \small
+\singlespacing
 \begin{tabular}{|c|l|c|}
 \hline
 	Interval			  & Change state & Precision \\

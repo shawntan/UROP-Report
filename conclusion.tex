@@ -8,10 +8,15 @@ In our report, we have shown that a simple alignment algorithm can be applied it
 produce the desired effect to give users a visual feedback of what they will be selecting.
 We have also used machine learning to tackle the issue of creating robust wrappers in the form
 of a decision tree. These wrappers are then used as backups when layouts change and the original
-XPath fails to work. These solutions were then implemented in the \textit{grabsmart} system.
+XPath fails to work. These solutions were then implemented in the grab\textit{smart} system.
+
+There are still limitations with the current implementation, such as the poor performance of
+the learnt model when it comes to non-header elements, or elements containing single worded
+content. Also, the system captures information at the HTML tag level, but more useful information
+may lie within the text content inside the tags.
 
 \section{Contributions}
-While \textit{grabsmart} is still far from being a full-scale Web Information Extraction system,
+While grab\textit{smart} is still far from being a full-scale Web Information Extraction system,
 it has the following advantages when compared to other Web IE solutions:
 \begin{enumerate}
 	\item It provides an immediate visual feedback when the user does the annotation process.
@@ -61,3 +66,4 @@ paginated, and one of the limitations of our system is that the extractor does n
 beyond the pages the user has annotated. Being able to infer a navigation pattern that
 goes through this paginated data, and then extracting this automatically would be useful
 for users who do not know how to write a scraper.
+

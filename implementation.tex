@@ -55,8 +55,10 @@ and also elements on the page with similar characteristics, like class names and
 within the parent tag.
 
 
-The process is an iterative one. When the user clicks on a new element on the page,
+When the user clicks on a new element on the page,
 the XPath is recalculated using the TPA algorithm, and then used to highlight the captured items on the page.
+Since the generalisation of the XPath is an iterative process, the user is able to perform
+actions step by step, and see how their actions affect the result.
 This way, the user understands the changes he/she has made to the extraction scope as he/she
 clicks on additional items. The user is then able to perform this task for any number of labels
 the user thinks is appropriate for the extractor he/she is creating.
@@ -154,3 +156,7 @@ change has occurred.
 At the same time, features are extracted from this data in order to create a model for
 extraction for future use.  For John, the process takes place completely in the background.
 When the layout of bookdepository.co.uk changes, the same data is still expected to be extracted.
+
+	Now that we have seen how the various methods described in Chapter \ref{chap:method} 
+fit into the rest of the system, we will look at how well the system performs in 
+Chapter \ref{chap:evaluation}.
