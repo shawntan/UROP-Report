@@ -73,7 +73,18 @@ so many of my questions.
 \newpage
 \appendix
 \input surveyresults.tex
-
+\begin{table}
+\centering
+\small
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+Batch	&Label	&TP	&FP	&FN	&TN	&	&Precision	&Recall\\
+\hline
+\input mlevalresults.tex
+\hline 
+\end{tabular}
+\caption{Learnt model evaluation results for digg.com}
+\end{table}
 
 
 

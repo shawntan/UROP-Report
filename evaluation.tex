@@ -7,6 +7,13 @@ evaluation on the qualitative performance of the system. In the second section, 
 the evaluation of the machine learning technique we have used, and how well this performs when
 attempting to extract data from a webpage after a layout change.
 
+In summary, these are the questions we hope to answer with our evaluation:
+\begin{enumerate}
+	\item What is the current awareness level of Web Information Extraction?
+	\item How easy is it to do various web IE tasks using our system?
+	\item How well does the robust wrapper perform on modified layouts?
+\end{enumerate}
+
 
 
 \section{Human evaluation of Selection Interface}
@@ -26,31 +33,48 @@ money for their time.
 
 \subsection{Analysis}
 The participants were asked to rank the ease of use for the installation of the bookmarklet on
-a scale of 1 to 5. On the average, the score was .... The installation procedure was meant to
+a scale of 1 to 5. On the average, the score was 1.63 The installation procedure was meant to
 be simple and easy: Dragging the button from the page to the toolbar. However, some of the 
 participants had an issue with this since some browsers, for example Chrome, do not show their
-toolbars by default.
-
-\begin{figure}
+toolbars by default. 
+\begin{quote}
+\textit{Installation was hassle-free. No need to restart browser (like in the case of plugins)}
+\end{quote}
+\begin{quote}
 \textit{
-``I think that should be the most simple way to install a bookmarklet. 
+I think that should be the most simple way to install a bookmarklet. 
 I think you should consider the case when the bookmark toolbar is hidden,
-and if it's possible, show a tutorial video for beginner.''}
-\end{figure}
+and if it's possible, show a tutorial video for beginner.}
+\end{quote}
 
-On the intuitiveness of the selection procedure, the average score was .....
+On the intuitiveness of the selection procedure, the average score was 2.27
 Some of the participants found the interface for modifying existing labels confusing,
 while some had issues when trying to select elements ``behind" its child elements.
-
-About 75\% of the participants found the visual feedback for the selection procedure useful
+\begin{quote}
+\textit{
+When the bookmarket is initially started, it does not intuitively guide the user as
+to how they are to go about choosing the elements they want from the page. Editing existing
+labels can be confusing.}
+\end{quote}
+76.67\% of the participants found the visual feedback for the selection procedure useful
 in understanding what the extractor would be extracting. 
 
 Viewing the extracted data seemed to be a problem for many of the participants. The average
-score given for the ease of viewing extracted data was at ...... This may be due to the way
+score given for the ease of viewing extracted data was at 2.73 This may be due to the way
 in which the page is updated after the data has been extracted and inserted into the database.
 
-In general, we find that the selection interface has been successful in its task: Aiding in 
-the process of annotation by giving visual feedback.
+\begin{quote}
+\textit{
+Nothing seems to have changed when I click ``extract" a couple of times. 
+Maybe include a ``estimated time left" bar or progress bar?
+At least something to indicate whether the extracting is completed or
+still in progress or something went wrong and nothing was registered.}
+\end{quote}
+
+In general, we find that the selection interface has been successful in aiding
+the process of annotation by giving visual feedback. However, there were still
+glaring issues in the interface used for viewing the extracted data. We intend to
+correct these technical problems in the next version of the system.
 
 \section{Machine Learning evaluation}
  We want to be able to extract the same content from pages which have had a layout change. So our
@@ -95,3 +119,46 @@ each 2 months apart, without taking into account if the pages have a change in l
 	While our method of evaluation did not yield significant results, we intend to compare
 our performance by estimating how well our classification method will do, given the same
 method of evaluation.
+\subsubsection{Estimation method}
+Due to the popularity of Digg compared to IMDB, the page has been indexed more by Web Archives.
+In our data set, we have 895 pages downloaded from IMDB. From this, we extracted 15 snapshots
+with 2 month intervals. We then calculated the accuracy of the extractor in the following manner:
+\begin{description}
+\item[Extracting $D^{(t)}$]:
+\begin{description}
+	\item[If $D^{(t+1)}$ is after a layout change] Use the accuracy of the model in the evaluated results.
+	\item[else] 100\% accuracy (this is the way we have defined the different datasets.)
+\end{description}
+\end{description}
+
+\begin{table}
+\centering
+\small
+\begin{tabular}{|c|l|c|}
+\hline
+	Interval			  & Change state & Precision \\
+\hline
+	$D^{(1)} \to D^{(2)}$ & Change		& 100\%\\
+	$D^{(2)} \to D^{(3)}$ & No Change 	& 100\%\\
+	$D^{(3)} \to D^{(4)}$ & Change 		& 49.83\%\\
+	$D^{(4)} \to D^{(5)}$ & No Change 	& 100\%\\
+	$D^{(5)} \to D^{(6)}$ & No Change 	& 100\%\\
+	$D^{(6)} \to D^{(7)}$ & No Change 	& 100\%\\
+	$D^{(7)} \to D^{(8)}$ & No Change 	& 100\%\\
+	$D^{(8)} \to D^{(9)}$ & No Change 	& 100\%\\
+	$D^{(9)} \to D^{(10)}$ & No Change 	& 100\%\\
+	$D^{(10)} \to D^{(11)}$ & No Change 	& 100\%\\
+	$D^{(11)} \to D^{(12)}$ & No Change 	& 100\%\\
+	$D^{(12)} \to D^{(13)}$ & No Change 	& 100\%\\
+	$D^{(13)} \to D^{(14)}$ & No Change 	& 100\%\\
+	$D^{(14)} \to D^{(15)}$ & No Change 	& 100\%\\
+\hline 
+\end{tabular}
+\caption{$D^{(t)}$ intervals and their corresponding layout changes}
+\label{tab:dalvicomp}
+\end{table}
+
+Using the numbers in Figure \ref{tab:dalvicomp} , we arrive at an overall precision of 96.41\%. This result
+is significantly better than the robust XPath wrappers generated using their method. However,
+it should be noted that this result is estimated, and the dataset used in this experiment may
+be drastically different from that of the IMDB archive.

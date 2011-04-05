@@ -42,13 +42,6 @@ Crescenzi, V., Mecca, G., \& Merialdo, P. (2002).
   Sites}.
 \newblock {\em Proceedings of the 27th VLDB Conference}, , 2002.
 
-\bibitem[\protect\citename{Dalvi}{Bohannon}{Sha}{DalviETAL}{2009}{Dalvi2009}]{Dalvi2009}
-Dalvi, N., Bohannon, P., \& Sha, F. (2009).
-\newblock {Robust web extraction: an approach based on a probabilistic
-  tree-edit model}.
-\newblock {\em Proceedings of the 35th SIGMOD international conference on
-  Management of data} (pp.\ 335--348), 2009: ACM.
-
 \bibitem[\protect\citename{Freitag}{}{}{Freitag}{1998}{Freitag1998}]{Freitag1998}
 Freitag, D. (1998).
 \newblock {Information Extraction from HTML : Application of a General Machine

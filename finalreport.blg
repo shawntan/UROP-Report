@@ -16,9 +16,6 @@ while executing---line 1367 of file socreport.bst
 while executing---line 1367 of file socreport.bst
 `month' is a missing field, not a string, for entry Crescenzi2002
 while executing---line 1367 of file socreport.bst
-Warning--empty address in Dalvi2009
-`month' is a missing field, not a string, for entry Dalvi2009
-while executing---line 1367 of file socreport.bst
 `month' is a missing field, not a string, for entry Freitag1998
 while executing---line 1367 of file socreport.bst
 Warning--empty booktitle in Gatterbauer2007
@@ -37,45 +34,45 @@ while executing---line 1367 of file socreport.bst
 while executing---line 1367 of file socreport.bst
 `month' is a missing field, not a string, for entry Zhang1989
 while executing---line 1367 of file socreport.bst
-You've used 17 entries,
+You've used 16 entries,
             2653 wiz_defined-function locations,
-            687 strings with 7815 characters,
-and the built_in function-call counts, 8035 in all, are:
-= -- 797
-> -- 361
-< -- 13
-+ -- 129
-- -- 129
-* -- 743
-:= -- 1396
-add.period$ -- 49
-call.type$ -- 17
-change.case$ -- 127
-chr.to.int$ -- 17
-cite$ -- 38
-duplicate$ -- 256
-empty$ -- 526
-format.name$ -- 153
-if$ -- 1567
+            680 strings with 7584 characters,
+and the built_in function-call counts, 7384 in all, are:
+= -- 733
+> -- 335
+< -- 12
++ -- 119
+- -- 119
+* -- 691
+:= -- 1294
+add.period$ -- 46
+call.type$ -- 16
+change.case$ -- 119
+chr.to.int$ -- 16
+cite$ -- 35
+duplicate$ -- 229
+empty$ -- 478
+format.name$ -- 143
+if$ -- 1430
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 16
-newline$ -- 86
-num.names$ -- 106
-pop$ -- 133
+missing$ -- 15
+newline$ -- 81
+num.names$ -- 99
+pop$ -- 120
 preamble$ -- 1
-purify$ -- 127
+purify$ -- 119
 quote$ -- 0
-skip$ -- 249
+skip$ -- 224
 stack$ -- 0
-substring$ -- 437
-swap$ -- 45
-text.length$ -- 4
+substring$ -- 394
+swap$ -- 35
+text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 153
-warning$ -- 4
-while$ -- 78
+type$ -- 144
+warning$ -- 3
+while$ -- 71
 width$ -- 0
-write$ -- 277
-(There were 15 error messages)
+write$ -- 259
+(There were 14 error messages)
