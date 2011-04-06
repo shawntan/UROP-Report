@@ -117,8 +117,13 @@ extracted if an XPath was created manually for each of these sets.
  
  
 \subsection{Analysis}
-We compare our results to those in Dalvi, Bohannon, \& Sha (2009) by estimating our
+Before we present our results, we compare our results to the performance
+of the robust wrappers in \cite{Dalvi2009} by estimating our
 robustness performance if we performed the same experiment.
+
+Their work aims to produce robust XPath wrappers resilient to changes 
+in layout by measuring the probability of different DOM edits in past pages
+from the Web Archive\footnote{\url{http://web.archive.org}}
 
 We differ from their evaluation methods in the choosing of test corpus. In their testing
 set, they have used 3 pages for learning, while testing their wrapper on 15 pages,
@@ -147,9 +152,15 @@ with 2 month intervals. We then calculated the accuracy of the extractor in the 
 	\end{algorithm}
 \label{fig:evalmeth}
 \end{figure}
+It is unclear from the paper what XPath is defined as working, so we assume that
+the XPath fails when it returns no corresponding element. In our learned model,
+our models do not generally work completely (retrieving a 100\% of all items),
+nor do they fail completely. Therefore, in order to estimate a result, we use 
+a threshold $\alpha$ on the $F_1$ measure of the model. If $F_1 > \alpha$,
+then we consider the model to be `working'.
 
-We have set $\alpha = 90\%$ as a threshold for our models. That is, if a model has an $F_1$
-score $> \alpha$, the model is considered a `hit'.
+
+We have set $\alpha = 90\%$ as a threshold for our models. 
 Since for our dataset the number of extracted items are the same (15) for each page,
 we have simply calculated the percentage of the models that would work.
 
@@ -218,7 +229,6 @@ only TITLE, AUTHOR and SUMMARY for Batch 0. The learner seems to have a problem 
 elements with short text content. Also, the poor performance is partly by 
 the classifier selecting elements that are either the direct child or parent of the target node.
 This is due to the fact that the content in the tags are almost the same, since the wrongly
-selected tag may either be an immediate ancestor or descendant of the wanted node.
-	
-	At the very least however, the data collected suggests that our approach achieves comparable
+selected tag may either be an immediate ancestor or descendant of the wanted node. 
+At the very least however, the data collected suggests that our approach achieves comparable
 results with the state-of-the-art.

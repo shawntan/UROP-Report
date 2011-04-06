@@ -36,13 +36,13 @@ corporations, since they are commonly used to extract huge amounts of data from 
 Also, process of getting them up and running takes quite a bit of time as it involves many
 hours of training and labelling work.
 
-However, for the users who brows the web for leisure do not have access to such resources.
+However, users who browse the web for leisure do not have access to such resources.
 We see an opportunity to make web IE more accessible for users by making it more user friendly,
 without the need for any programming knowledge.
 
 Our primary goal of user-centric web IE is to offer an easy way for users to be able to extract
 data from the web. We have identified two challenges for this goal that we will address in this
-thesis: 1. No need to know how to program and 2. The system must work seamlessly even at the 
+thesis: 1. No need for user to have any programming knowledge and 2. The system must work seamlessly even at the 
 even after a layout change.
 
 To address these challenges, we propose grab\textit{smart}, a Web IE system with the following 
@@ -66,7 +66,7 @@ immediately, but, the abovementioned systems, with the exception of Needlebase, 
 to have customised software in order to perform this labelling. In addition, all 3 systems
 required users to have some experience with programming.
 
-In contrast, our proposed system, grab\textit{smart}, we aim to allow users to have a sense of what will be
+In our proposed system, grab\textit{smart}, we aim to allow users to have a sense of what will be
 extracted, with the added advantage of keeping the installation simple.
 \subsubsection{XPath Generation \& Robust Wrappers}
 As the medium for transmitting the selected items back and forth between the bookmarklet and
@@ -87,9 +87,7 @@ Gatterbauer also approached the problem of extracting data from tables on pages 
 analysing its 2D output \cite{Gatterbauer2007}.
 
 The issue with these methods are that the XPath generated is not immediate, and the user is unable to know
-what will be extracted using the XPath until it is extracted.
-
-In contrast, grab\textit{smart} will generate XPaths as well, but will be able to do this fast, so that
+what will be extracted using the XPath until it is extracted. In contrast, grab\textit{smart} will generate XPaths as well, but will be able to do this fast, so that
 the user can be updated via visual changes to the interface. In order
 to still be robust, our system will employ machine learning to learn a model for extraction, and use this
 once the generated XPath fails to work.
@@ -113,7 +111,7 @@ We make the following modification to the Needleman-Wunsch algorithm:
 \begin{enumerate}
 	\item The scoring function used is based on the number of attributes
 	in common between the two elements.
-	\item The method for reconstructing the aligned path is given as aparameter. This is due
+	\item The function for reconstructing the aligned path is given as a parameter. This is due
 	to the slight differences in which the rejection path is calculated.
 \end{enumerate}
 
@@ -123,14 +121,14 @@ attributes) along $P$ and $Q$. After the alignment, a new generalised traversal 
 created, $P'$, such that $P'_k = P_i \cap Q_j$, where $P_i$ and $Q_j$ are elements in the
 original traversal paths that were aligned.
 
-When selecting additional elements for generalising the XPath, the $\lambda$ function would be
+When selecting additional elements for generalising the XPath, the $\lambda$ function,
+used during the tracetrack for `reconstruction' of the matching path elements, would be
 defined as $\lambda(P_i,Q_j) = P_i \cap Q_j$. This would reconstuct a generalised traversal
 path with common elements and their common attributes. Gaps in the path are represented as ``*"
  in the output. During the serialisation of the XPath, groups of these are converted to
  \url{//} to represent any descendant.
  
- This process is a bottom-up approach: Users start with a single element, and as more items are
-selected, the items captured by the XPath generated grows. For each element along the selected
+ For each element along the selected
 item's path, the similarities between the tag's attributes are kept, and the differences
 removed. This results in an extraction rule with fewer and fewer constraints as more elements
 are selected. Using alignment of the path elements, XPath rules can be generalised for elements at different
@@ -180,15 +178,11 @@ Ending with character (:,-,.) (Discrete) and Header (Discrete).
 
 In order to search for more instances for learning, we crawl the site for more similar pages.
 However, the elements returned from applying the XPath on these new crawled pages are not extracted,
-but merely used for learning.
-
-The crawler starts with a given set of pages, and crawls links with URLs similar
+but merely used for learning. The crawler starts with a given set of pages, and crawls links with URLs similar
 to the given pages. The similarity score is given by the edit distance between the link URL
 and the URL of the wanted pages. A heap is used to store the seen links, and the most similar
 URL selected at every round. The crawler stops when it has collected a set number of instances,
-which is now set at 500.
-
-The entire process of crawling more pages for more learning instances is transparent to the user.
+which is now set at 500. The entire process of crawling more pages for more learning instances is transparent to the user.
 Also, when the layout does change, the switch to the learned model is also seamless, and the 
 user will be able to find the extracted data just in the same way if the XPath has extracted it.
 
@@ -234,7 +228,7 @@ For this evaluation, we have selected the archived pages of Digg from Web Archiv
 detected when the XPath does not retrieve any items), we have restricted the evaluation of 
 the learnt models between layout changes.
 
-	We use old pages from web.archive.org to simulate pages that have not
+	We use old pages from Web Archive to simulate pages that have not
 undergone a layout change. To define a layout change, we use the tree-edit distance \cite{Zhang1989} between two pages as
 a simple metric. In order to find layout changes within the list of pages we retrieved from Web
 Archive, we took the tree-edit distance of the DOM tree between every pair of consecutive pages.
@@ -244,47 +238,38 @@ in which the old XPaths failed to work.
  We created 5 sets of 20 pages from the pages retrieved from web
 then trained the classifier on each of these. The test results were then compared to the data
 extracted if an XPath was created manually for each of these sets.
+In order to compare our results with the state-of-the-art, we compare our results to the performance of the robust wrappers
+in \cite{Dalvi2009} by estimating our robustness performance if we performed the same experiment.
 
-\subsubsection{Analysis}
+Their work aims to produce robust XPath wrappers resilient to changes 
+in layout by measuring the probability of different DOM edits in past pages
+from the Web Archive\footnote{\url{http://web.archive.org}}
 
-The results of the experiment are in Figure \ref{tab:mlevalresults}. 
-Aside from the first layout change, the other layout changes sometimes do not extract anything
-at all. This is probably due to the fact that Digg underwent a significant layout change that
-rearranged the locations of the individual items within each entry, rendering the model learnt
-useless. Also, some of the labels, like the article poster's username, are harder to learn
-than others, since not many defining features could be extracted. Of the results retrieved,
-only TITLE, AUTHOR and SUMMARY for Batch 0. The learner seems to have a problem dealing with
-elements with short text content. Also, the poor performance is caused partly by 
-the classifier selecting elements that are either the direct child or parent of the target node.
-This is due to the fact that the content in the tags are almost the same, since the wrongly
-selected tag may either be an immediate ancestor or descendant of the wanted node.
+We differ from their evaluation methods in the choosing of test corpus. In their testing
+set, they have used 3 pages for learning, while testing their wrapper on 15 pages,
+each 2 months apart, without taking into account if the pages have a change in layout.
+\subsubsection{Estimation Method}
+In our data set, we have 895 pages downloaded from Digg. From this, we extracted 15 snapshots
+with 2 month intervals.
 
+It is unclear from the paper what XPath is defined as working, so we assume that
+the XPath fails when it returns no corresponding element. In our learned model,
+our models do not generally work completely (retrieving a 100\% of all items),
+nor do they fail completely. Therefore, in order to estimate a result, we use 
+a threshold $\alpha$ on the $F_1$ measure of the model. If $F_1 > \alpha$,
+then we consider the model to be `working'.
 
-We also compare our results to those in Dalvi, Bohannon, \& Sha (2009) by estimating our
-robustness performance if we performed the same experiment. We intend to compare our performance
-by estimating how well our classification method will do, given the same
-method of evaluation.
-\subsubsection{Estimation method}
-Due to the popularity of Digg compared to IMDB, the page has been indexed more by Web Archives.
-In our data set, we have 895 pages downloaded from IMDB. From this, we extracted 15 snapshots
-with 2 month intervals. We then calculated the number of `hits' each model got when applied from
-
-
-We have set $\alpha = 90\%$ as a threshold for our models. That is, if a model has an $F_1$
-score $> \alpha$, the model is considered a `hit'.
+We have set $\alpha = 90\%$ as a threshold for our models.
 Since for our dataset the number of extracted items are the same (15) for each page,
 we have simply calculated the percentage of the models that would work. There are four
 models in total.
-
 
 We arrive at an overall precision of 91.07\%. This result is significantly better than the robust
 XPath wrappers generated using their method. However,
 it should be noted that this result is estimated, and the dataset used in this experiment may
 be drastically different from that of the IMDB archive. Also, this method is slightly more forgiving
 since the model is still considered ``working" even though it does not have a 100\% precision
-and recall.
-
-	At the very least, the data collected suggests that our approach achieves comparable
+and recall. The data collected suggests that our approach achieves comparable
 results with the state-of-the-art.
 \section{Conclusion}
 While our primary goal has many challenges, in this report, we have chosen to address 
@@ -302,7 +287,7 @@ the learnt model when it comes to non-header elements, or elements containing si
 content. Also, the system captures information at the HTML tag level, but more useful information
 may lie within the text content inside the tags.
 
-Our system, grab\textit{smart}, has the following advantages when compared to other Web IE solutions:
+In summary, grab\textit{smart}, has the following advantages when compared to other Web IE solutions:
 \begin{enumerate}
 	\item It provides an immediate visual feedback when the user does the annotation process.
 	\item It is: Easy to install, relatively simple to use.
