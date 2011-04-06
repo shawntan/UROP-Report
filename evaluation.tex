@@ -1,8 +1,8 @@
 \chapter{Evaluation}
 \label{chap:evaluation}
 We have divided the evaluation of our system into 2 important sections. The selection interface
-deals with a more subjective topic, since its performance is dependent on how easy users find 
-selecting items for extraction is. For this component of the system, we are doing a human
+deals with a more qualitative topic, since its performance is dependent on how easy users find 
+selecting items for extraction. For this component of the system, we conducted a human
 evaluation on the qualitative performance of the system. In the second section, we will describe
 the evaluation of the machine learning technique we have used, and how well this performs when
 attempting to extract data from a webpage after a layout change.
@@ -11,7 +11,7 @@ In summary, these are the questions we hope to answer with our evaluation:
 \begin{enumerate}
 	\item What is the current awareness level of Web Information Extraction?
 	\item How easy is it to do various web IE tasks using our system?
-	\item How well does the robust wrapper perform on modified layouts?
+	\item How well does the robust wrapper perform on modified web page layouts?
 \end{enumerate}
 
 
@@ -33,7 +33,8 @@ money for their time.
 
 \subsection{Analysis}
 The participants were asked to rank the ease of use for the installation of the bookmarklet on
-a scale of 1 to 5. On the average, the score was 1.63 The installation procedure was meant to
+a scale of 1 to 5, with 1 being ``Really easy" and 5 being ``Really difficult".
+ On the average, the score was 1.63 The installation procedure was meant to
 be simple and easy: Dragging the button from the page to the toolbar. However, some of the 
 participants had an issue with this since some browsers, for example Chrome, do not show their
 toolbars by default. 
@@ -74,19 +75,24 @@ still in progress or something went wrong and nothing was registered.}
 In general, we find that the selection interface has been successful in aiding
 the process of annotation by giving visual feedback. However, there were still
 glaring issues in the interface used for viewing the extracted data. We intend to
-correct these technical problems in the next version of the system.
+correct these cosmetic problems in the next version of the system.
 
 \section{Machine Learning evaluation}
  We want to be able to extract the same content from pages which have had a layout change. So our
  evaluation method involves attempting to extract data after a layout change by training a
  classifier for the previous.
+ 
+ For this evaluation, we have selected the archived pages of Digg from Web Archives. This is
+ due to the fact that Digg has a front page with structured entries, very much like a search
+ entry. Also, Digg has gone through several layout changes over the years, making it an excellent
+ candidate to perform this experiment on.
 \subsection{Methodology}
 	Since our system only uses the learnt models when the layout of the page changes (which is 
 detected when the XPath does not retrieve any items), we have restricted the evaluation of 
 the learnt models between layout changes.
 
-	We use old pages from web.archive.org to simulate old pages that have not
-undergone a layout change. To define a layout change, we use the tree-edit distance \cite{Zhang1989} between 2 pages as
+	We use old pages from web.archive.org to simulate pages that have not
+undergone a layout change. To define a layout change, we use the tree-edit distance \cite{Zhang1989} between two pages as
 a simple metric. In order to find layout changes within the list of pages we retrieved from Web
 Archive, we took the tree-edit distance of the DOM tree between every pair of consecutive pages.
 The graph of these values is shown in Figure \ref{fig:scoregraph}.
@@ -100,44 +106,52 @@ The graph of these values is shown in Figure \ref{fig:scoregraph}.
 
 	The spikes visible in the graph were signals of a high tree-edit distance between the pairs
 of pages, and signals some sort of layout change. What we are looking for, however, are changes
-in which the XPaths fail to work. For each of the labels we are hoping to extract, we check the
+in which the XPaths fail to work. For each of the labels we are hoping to extract, we check
 if the application of the XPath yields any resulting DOM nodes. If they do not, the page was
-considered a layout change, and the pages prior the change were randomly sampled for 10 instances
+considered a layout change, and the pages prior the change were randomly sampled for 20 instances
 for learning. On the graph, these nodes are shown in blue.
 
-	 We created 5 sets of 10 pages from the pages retrieved from web
+	 We created 5 sets of 20 pages from the pages retrieved from web
 then trained the classifier on each of these. The test results were then compared to the data
 extracted if an XPath was created manually for each of these sets.
  
  
 \subsection{Analysis}
-	The results of our method of evaluation is shown in Figure \ref{tab:mlevalresults} on page
-\pageref{tab:mlevalresults}. The performance of the learnt model between batches is pretty poor.
-Aside from the first layout change, the other layout changes sometimes do not extract anything
-at all. This is probably due to the fact that Digg underwent a significant layout change that
-rearranged the locations of the individual items within each entry, rendering the model learnt
-useless.
-	
-	While the machine classification has performed poorly, this method of evaluation is far
-stricter than the evaluation of robustness found in Dalvi, Bohannon, \& Sha (2009).
+We compare our results to those in Dalvi, Bohannon, \& Sha (2009) by estimating our
+robustness performance if we performed the same experiment.
+
 We differ from their evaluation methods in the choosing of test corpus. In their testing
-set of pages, they have used 3 pages for learning, while testing their wrapper on 15 pages,
+set, they have used 3 pages for learning, while testing their wrapper on 15 pages,
 each 2 months apart, without taking into account if the pages have a change in layout.
 
-	While our method of evaluation did not yield significant results, we intend to compare
-our performance by estimating how well our classification method will do, given the same
+	We intend to compare our performance by estimating how well our classification method will do, given the same
 method of evaluation.
 \subsubsection{Estimation method}
 Due to the popularity of Digg compared to IMDB, the page has been indexed more by Web Archives.
 In our data set, we have 895 pages downloaded from IMDB. From this, we extracted 15 snapshots
 with 2 month intervals. We then calculated the accuracy of the extractor in the following manner:
-\begin{description}
-\item[Extracting $D^{(t)}$]:
-\begin{description}
-	\item[If $D^{(t+1)}$ is after a layout change] Use the accuracy of the model in the evaluated results.
-	\item[else] 100\% accuracy (this is the way we have defined the different datasets.)
-\end{description}
-\end{description}
+
+\begin{figure}[htbp]
+\singlespacing
+	\begin{algorithm}[H]
+	\caption{Calculating performance of a wrapper over an interval}
+	\begin{algorithmic}[1]
+		\IF{$D^{(t)} \to D^{(t+1)}$ has layout change}
+			\STATE $M \leftarrow$ models trained using batch corresponding to $D^{(t)}$
+			\STATE $w \leftarrow$ models with $F_1$ score above $\alpha$ in $M$
+			\RETURN $\frac{w}{|M|}$
+		\ELSE
+			\RETURN 100\% accuracy (this is the way we have defined the different datasets.)
+		\ENDIF
+	\end{algorithmic}
+	\end{algorithm}
+\label{fig:evalmeth}
+\end{figure}
+
+We have set $\alpha = 90\%$ as a threshold for our models. That is, if a model has an $F_1$
+score $> \alpha$, the model is considered a `hit'.
+Since for our dataset the number of extracted items are the same (15) for each page,
+we have simply calculated the percentage of the models that would work.
 
 \begin{table}
 \centering
@@ -145,11 +159,11 @@ with 2 month intervals. We then calculated the accuracy of the extractor in the 
 \singlespacing
 \begin{tabular}{|c|l|c|}
 \hline
-	Interval			  & Change state & Precision \\
+	Interval			  & Change state & Robustness\\
 \hline
-	$D^{(1)} \to D^{(2)}$ & Change		& 100\%\\
+	$D^{(1)} \to D^{(2)}$ & Change		& 75\%\\
 	$D^{(2)} \to D^{(3)}$ & No Change 	& 100\%\\
-	$D^{(3)} \to D^{(4)}$ & Change 		& 49.83\%\\
+	$D^{(3)} \to D^{(4)}$ & Change 		& 0\%\\
 	$D^{(4)} \to D^{(5)}$ & No Change 	& 100\%\\
 	$D^{(5)} \to D^{(6)}$ & No Change 	& 100\%\\
 	$D^{(6)} \to D^{(7)}$ & No Change 	& 100\%\\
@@ -167,7 +181,44 @@ with 2 month intervals. We then calculated the accuracy of the extractor in the 
 \label{tab:dalvicomp}
 \end{table}
 
-Using the numbers in Figure \ref{tab:dalvicomp} , we arrive at an overall precision of 96.41\%. This result
+Using the numbers in Table \ref{tab:dalvicomp} , we arrive at an overall precision of 91.07\%. This result
 is significantly better than the robust XPath wrappers generated using their method. However,
 it should be noted that this result is estimated, and the dataset used in this experiment may
-be drastically different from that of the IMDB archive.
+be drastically different from that of the IMDB archive. Also, this method is slightly more forgiving
+since the model is still considered ``working" even though it does not have a 100\% precision
+and recall.
+
+We have also performed a stricter form of evaluation using our data set that uses pages
+grouped by layout changes. This means the model is used only after a drastic layout change
+that causes the XPath to no longer work.
+
+\begin{table}
+\centering
+\small
+\singlespacing
+\begin{tabular}{|c|l|c|c|c|c|c|c|c|c|c|}
+\hline
+Batch	&Label	&TP	&FP	&FN	&TN	&	&Precision	&Recall& $F_1$ & Accuracy\\
+\hline
+\input groupeddigg.tex
+\hline 
+\end{tabular}
+\caption{Learnt model evaluation results for digg.com}
+\label{tab:mlevalres}
+\end{table}
+
+
+	The results of our method of evaluation is shown in Table \ref{tab:mlevalres}.
+Aside from the first layout change, the other layout changes sometimes do not extract anything
+at all. This is probably due to the fact that Digg underwent a significant layout change that
+rearranged the locations of the individual items within each entry, rendering the model learnt
+useless. Also, some of the labels, like the article poster's username, are harder to learn
+than others, since not many defining features could be extracted. Of the results retrieved,
+only TITLE, AUTHOR and SUMMARY for Batch 0. The learner seems to have a problem dealing with
+elements with short text content. Also, the poor performance is partly by 
+the classifier selecting elements that are either the direct child or parent of the target node.
+This is due to the fact that the content in the tags are almost the same, since the wrongly
+selected tag may either be an immediate ancestor or descendant of the wanted node.
+	
+	At the very least however, the data collected suggests that our approach achieves comparable
+results with the state-of-the-art.

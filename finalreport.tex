@@ -20,7 +20,7 @@
 
 \begin{document}
 \pagenumbering{roman}
-\title{User-centric Web Information Extraction}
+\title{grab\textit{smart}: A User-centric Web Information Extraction System}
 \author{Shawn Tan}
 \projyear{2010/11}
 \projnumber{U096883L}
@@ -30,10 +30,16 @@
 	\item Source Code: 1 DVD}
 \maketitle
 \begin{abstract}
-In this report, I present an algorithm providing an iterative method for users to generate a 
-wrapper visually from a given web page, and also a machine learning solution for extraction of
-data after a site layout change. These were implemented as a system, and then evaluated 
-both quantitatively and qualitatively. 
+We present grab\textit{smart}, a user-centric web information extraction system that
+addresses two challenges of today's web information extraction systems. Firstly, users
+without any programming language should be able to easily and simply specify information
+they want to extracted. Secondly, the system should be robust enough to work seamlessly
+after changes in website layouts. To address these challenges grab\textit{smart}: 1.
+provides users with an interactive visual interface for information selection, and 2.
+uses a robust machine learning framework that extracts information even after layout changes.
+
+Our evaluation results show that the framework may not perform well under all circumstances,
+but is comparable to related work in robust wrapper induction.
 
 \begin{descriptors}
 	\item H3.5 Web-based Services
@@ -72,23 +78,26 @@ so many of my questions.
 \bibliography{UROP}
 \newpage
 \appendix
+\chapter{Human evaluation}
+\section{Bookstore scenario}
+
+Now that you have familiarised yourself with the basic usage of the system,
+we can move on to our first scenario.
+
+Book Depository is an online bookstore that provides free shipping to many
+countries round the world. This gives it a slight edge over the popular
+online bookstore Amazon. It's site is a standard e-commerce site, with standard
+capabilities such as browsing and searching, and sorting search results.
+
+Imagine you are interested in up and coming mathematics books, but,
+unfortunately, Book Depository does not provide an active feed of
+such data as it is keyed into its database.
+
+Use the system to create an extractor that provides a feed that would
+supply the needed information by extracting the relevant data from the
+e-bookstore. The feed must provide the data in order of latest to oldest.
+\newpage
+\section{Survey \& Feedback results}
 \input surveyresults.tex
-\begin{table}
-\centering
-\small
-\singlespacing
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
-\hline
-Batch	&Label	&TP	&FP	&FN	&TN	&	&Precision	&Recall\\
-\hline
-\input mlevalresults.tex
-\hline 
-\end{tabular}
-\label{tab:mlevalresults}
-\caption{Learnt model evaluation results for digg.com}
-\end{table}
-
-
-
 
 \end{document}

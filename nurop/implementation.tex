@@ -1,19 +1,7 @@
-\chapter{The grab\textit{smart} System}
-\label{chap:implementation}
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[scale=0.43]{implementation.png} 
-\caption{Overall system architecture}
-\label{fig:systemarchitecture}
-\end{figure}
-
-
-\label{chap:selection}
+\section{The grab\textit{smart} System}
+\label{section:implementation}
 This chapter details the implementation of the methods mentioned before into a working system.
-The system consists of three main components, the architecture is depicted in Figure \ref{fig:systemarchitecture}.
-The components shown are the following:
-
+The system consists of three main components:
 \begin{enumerate}
 	\item \textbf{Selection Interface}
 	This is implemented as a bookmarklet which the user can simply drag into the toolbar of the browser.
@@ -34,25 +22,8 @@ The selection interface described in this section aims to provide visual feedbac
 when building a suitable wrapper for the page chosen by John. The interface is implemented
 in the form of a bookmarklet which John simply has to drag and drop into his browser
 toolbar. This bookmarklet can then be activated when the he arrives at a page which he/she wants
-to have something extracted. Clicking on items will select them in green, and subsequent clicking
-will expand the scope of the extraction, with the items to be extracted highlighted in yellow.
-Figure \ref{fig:selection_example} shows a screenshot of a search result in bookdepository.co.uk
-with the bookmarklet activated.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[scale=0.43]{selection_example.png} 
-\caption{An example of the selection interface in action.}
-\label{fig:selection_example}
-\end{figure}
-
-
-For greater automation, the bookmarklet interface attempts to reduce the amount of labelling
-work the user has to do by predicting what the user wants to extract from the page.
-More specifically, as the user selects the individual HTML elements on the page using the interface,
-the bookmarklet generalises an XPath that captures the selected elements,
-and other elements on the page with similar characteristics, like class names and position
-within the parent tag.
+to have something extracted. Clicking on items will select them, and subsequent clicking
+will expand the scope of the extraction, with the items to be extracted highlighted.
 
 
 When the user clicks on a new element on the page,
@@ -70,28 +41,7 @@ titles on the page in yellow. This means that the items will be extracted once t
 extractor is activated. He then saves this label, then does the same for the prices.
 
 
-\subsection{Engineering challenges}
-
-One of the aims of the interface was to ensure that the software would not require the hassle of
-installation. This included not only standalone, specialised browsers for selection of items,
-but also extended to plugins. We made the decision to go with a bookmarklet because it was
-a commonly used method for a platform-agnostic app that runs on existing web pages.
-In general, a bookmarklet achieves
-this by injecting a \url{<SCRIPT>} tag into the host page, with the \url{src} attribute pointed
-to the main code hosted on the application's server. In order to force the bookmarklet to always be
-the latest version retrieved from the server, we made it perform the request with different parameters
-each time (random number). Since this meant downloading the code
-every time the bookmarklet is activated, one of our challenges was also to keep the code small.
-
-The bookmarklet sends the created unserialised generalised traversal paths and XPaths back via 
-AJAX callbacks to the Ruby on Rails application frontend. One of the technical difficulties in implementing
-this was the fact that the standard XMLHttpRequest method of AJAX callbacks were not usable due
-to the cross-site security put into place by the Javascript API. Our workaround is to use
-hidden form elements within the interface to send POST requests back to the server. Data is
-fetched by inserting script tags and callbacks to allow the JSON objects to be passed back into
-the small Javascript application.
-
-\section{Web Application}
+\subsection{Web Application}
 
 In order to extract data from bookdepository.co.uk, John would have to create a new 
 \textbf{extractor}. This can be done through the bookmarklet when he is at the page 
@@ -103,37 +53,15 @@ new \textbf{label}.
 The web application we have developed aims to provide the user a way to modify and
  manipulate the concepts we have mentioned.
 
- \subsection{Extractor list}
-\begin{figure}[htbp]
-\centering
-\includegraphics[scale=0.43]{dashboard.png} 
-\caption{Dashboard screenshot}
-\label{fig:dashboard}
-\end{figure}
-
- 
- Figure \ref{fig:dashboard}
- shows a screenshot of the John's dashboard. This is the first page that John sees
+\textbf{Dashboard} This is the first page that John sees
  after he has logged in. The page lists the various extractors that he has created, and 
  he is able to delete them or view the extractors in greater detail by clicking ``View".
- 
- \subsection{Viewing the extractor}
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[scale=0.5]{extractorview.png} 
-\caption{Extractor view}
-\label{fig:extractorview}
-\end{figure}
- The detailed view of the extractor shows several items,
-  which can be seen in Figure \ref{fig:extractorview}:
- \begin{enumerate}
- 	\item List of the labels, together with their corresponding XPath.
- 	We have chosen to supply the generated XPath in the page for the benefit
-	of users who are familiar with writing screen-scrapers.
- 	\item The list of pages that the labels will be applied on.
- 	\item The latest list of data extracted from the data, if it exists.
- \end{enumerate}
+\textbf{Extractor view} The detailed view of the extractor shows several items:
+ List of the labels, together with their corresponding XPath,
+ the list of pages that the labels will be applied on and
+the latest list of data extracted from the data, if it exists.
+
  John is, again, able to delete any labels or pages that he no longer wishes to extract
  using the extractor. Also, the page has a linked RSS feed that the user can subscribe to.
  
@@ -151,8 +79,6 @@ with the method described in the previous chapter.
 This process is meant to be transparent to the user, so the user should not have to make
 any changes to his configured extractor. The extractor should then work even though a layout 
 change has occurred.
-
-\input{machinelearningworkflow}%redo this again
 
 	The extracted data is inserted back into the database, and then made available to the user.
 At the same time, features are extracted from this data in order to create a model for

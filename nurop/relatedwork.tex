@@ -1,20 +1,10 @@
-\chapter{Related Work}
-\label{chap:relatedwork}
-Initially, web IE involved manually written wrappers that catered to specific needs and
-information sources \cite{Chawathe1994,Perkowitz1995}. While this provided accuracy in the
-information extracted, it required users of such IE systems to have some background in
-programming. Later, many wrapper induction tools came about after Kushmerick's paper
-\cite{Kushmerick1997}, using several different approaches to the problem (e.g. machine
-learning) \cite{Freitag1998,Soderland}. Subsequently, from 2001, systems that required no user
-intervention were developed \cite{Chang2001,Crescenzi2002,Arasu2003}. This suggests a trend
-toward information extraction systems with less human interaction.
-\section{Visual feedback for User annotation}
-IE systems cannot completely be free of user intervention: ``Supervised approaches,
-although require annotation from users, extend well to non-template page extraction if proper
-features are selected for extraction rules" \cite{Kayed2006}. Since user annotation is crucial
-to web IE, it is important to improve current user interfaces for labelling. Attempts such as
+\section{Related Work}
+\label{section:relatedwork}
+
+\subsection{Visual feedback for User annotation}
+ Attempts such as
 \textit{Lixto}, which has some focus on the user interface aspect of labelling, have tried to
-make this process more visual \cite{Baumgartner2001}. Other ways to do this would be to reduce
+make the annotation process more visual \cite{Baumgartner2001}. Other ways to do this would be to reduce
 the amount of sample data required by the system, or to provide a way to give the user
 immediate feedback as to what the result of the learnt classifier would be.
 
@@ -22,26 +12,15 @@ There are several commercial systems that also do this, like Mozenda and Needleb
 MIT's Solvent is part of a mash-up creation system that also provides users with a similar
 visual feedback system. Enabling the users to see what the system will extract helps give a
 sense of transparency from the system, and in this way, allows the user to make any required
-corrections immediately. Examples of these systems in action are seen in Figure \ref{fig:lixto}.
+corrections immediately.
 
 However, the abovementioned systems, with the exception of Needlebase, require users to perform
 the changes within a customised browser inside the system. In addition, Mozenda, Needlebase and
 Solvent require users to have had experience with programming, as part of their extraction
 process requires the user to define the ``flow" of the extraction.
 
-\begin{figure}[htbp]
-\begin{center}
-\includegraphics[scale=0.5]{lixto.png} 
-\includegraphics[scale=0.25]{mozenda.png}
-\\
-\includegraphics[scale=0.25]{piggybank.png} 
-\end{center}
 
-\caption{The \textit{Lixto}, Mozenda and Solvent interfaces}
-\label{fig:lixto}
-\end{figure}
-
-In contrast,our proposed system, grab\textit{smart}, we aim to provide a system which allows users to have a
+In our proposed system, grab\textit{smart}, we aim to provide a system which allows users to have a
 sense of what will be extracted, with the added advantage of keeping the installation process
 simple by introducing this to the user in the form of a bookmarklet, so that all that is needed
 is a drag-and-drop action.
@@ -52,9 +31,8 @@ a native API for querying using XPath}, so by being able to generate XPath queri
 we are also able to provide a way for writers of their own scrapers to do so more easily.
 
 
-\section{Generation of XPath for wrappers}
-XPath is a powerful query language commonly used for selecting particular elements in XML
-documents. Recently, many scrapers are using XPath as a method of retrieving the relevant
+\subsection{Generation of XPath for wrappers}
+Recently, many scrapers are using XPath as a method of retrieving the relevant
 element within an HTML page. This is because its representation of the selected items is
 somewhat similar to the way we access directories in our file systems, and also the ubiquity of
 XPath as a query language for many HTML parsers makes XPath viable as a tool to retrieve the
@@ -72,7 +50,7 @@ for robustness. The method generates a list of candidate XPaths for a certain se
 within the page. It used archived data of a given website to calculate its \textit{compute
 transformation probability}. Using this, the most robust XPath candidate was selected from the
 list. This process, however, required access to archives of older versions of the site. Such
-methods of XPath generation are not immediate, and, for the most part, does not involve a
+methods of XPath generation do are not immediate, and, for the most part, does not involve a
 lot of input from the user, but the drawback of that would be that the user is unaware of what
 will be extracted until he/she sees the extracted results.
 
@@ -80,18 +58,14 @@ In contrast, our system trades the robustness of the XPath
 query with the speed of generation. It will also be able to create, and display
 elements on the page that will be extracted as the user is selecting items.
 
-\section{Robust wrappers}
+\subsection{Robust wrappers}
 Another problem faced when trying to automate web IE is having to regenerate or re-implement
 the wrapper every time there is a change in the site layout. This is an important problem given
-the ease in which CMSs allow pages to be ``themed" and redesigned. 
-Wrappers need
+the ease in which CMSs allow pages to be ``themed" and redesigned. Wrappers need
 to be robust enough to handle such changes, and be less reliant on the underlying
-structure of the page. 
-We have already covered one method of robust wrapper generation by using probabilistic tree edit models
-in the previous section.
-
+structure of the page.
 	
-One other method of approaching this was to make use of the visual features of the page. The PARCELS \cite{Lee2004}
+One method of approaching this was to make use of the visual features of the page. The PARCELS \cite{Lee2004}
 system is not strictly an information extraction system, but rather, is concerned with dividing
 up the page and classifying the resulting blocks correctly. As input, the user is required to
 input several example pages with labelled blocks as examples. The system then extracts features
@@ -104,16 +78,9 @@ problem of extracting data from web tables by looking directly at the rendered 2
 extracting tables (or grids) within them, and then analysing these in order to extract relevant
 information \cite{Gatterbauer2007}.
 
-\section{Conclusion}
-To address the shortcomings of existing work in the area, grab\textit{smart}
-makes two main contributions:
-\begin{enumerate}
-	\item Provide an intuitive interface for labelling that is platform agnostic, and takes advantage of the many advancements in Javascript. This will provide the user with an immediate visual feedback as to the items that he/she will be extracting, and at the same time reduce the amount of labelling that needs to be done.
-	\item Create a more robust framework for extraction of the selected information using machine learning. The classifier will have less focus on the HTML structural information of the tags in order to be resistant to any layout changes made to the page.
-\end{enumerate}
 
-For the rest of the report, we will define users of the system as users who do not have access 
-to resources required by current information extraction system. This includes not only the 
-hardware and processing power required, but also the time needed for the labelling work done.
-Also, we will define robustness as the wrapper's resistance to changes in HTML structure from
-the time that the wrapper was derived.
+
+
+
+
+

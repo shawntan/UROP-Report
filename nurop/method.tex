@@ -1,4 +1,16 @@
-\section{Path Traversal Alignment (PTA)}
+\section{Method}
+\label{chap:method}
+In the following sections, we will elaborate on the different techniques used in this report.
+In the first section we will describe traversal path alignment algorithm, which we
+propose to overcome the issues of current methods of XPath generation by providing
+a way to create viable XPaths based on elements that users have selected or rejected,
+giving them a visual understanding of what will be extracted as they complete the process.
+
+Next, we address the approach we take in trying to create a robust wrapper for the site.
+We propose a framework for learning models for classification of HTML tags or DOM nodes by
+learning from extracted instances using the XPath.
+
+\subsection{Path Traversal Alignment (PTA)}
 A tag's traversal path from the \url{<BODY>} tag is an important aspect which describes tags which are visually similar.
 Parents of selected tags with similar tag names or that have similar
 attributes are likely to be tags that look visually similar on the page. This also implies that
@@ -19,42 +31,11 @@ Hence, we make the following modifications to the Needleman-Wunsch algorithm:
 	describe in the following sections why this is needed.
 \end{enumerate}
 
-\begin{figure}[htbp]
-\singlespacing
-	\begin{algorithm}[H]
-	\caption{\textsc{PTAlign}$(P,Q,\lambda)$}
-	\begin{algorithmic}[1]
-		\FOR{$i \leftarrow 1$ to $|P| + 1$}
-			\FOR{$j \leftarrow 1$ to $|Q| + 1$}
-				\STATE $M_{i,j} \leftarrow \max(M_{i-1,j},M_{i-1,j-1},M_{i,j-1}) + \textsc{Score}(P_i,Q_j)$
-			\ENDFOR	
-		\ENDFOR
-		\STATE $R \leftarrow []$
-		\WHILE{$i > 1$ and $j > 1$}
-			\IF{$M_{i,j} - \textsc{Score}(P_i,Q_j) = M_{i-1,j-1}$}
-				\STATE $R \leftarrow \lambda(P_i,Q_j) + R$
-				\STATE $i,j \leftarrow i-1,i-j$
-			\ELSIF{$M_{i,j} - \textsc{Score}(P_i,Q_j) = M_{i-1,j}$}
-				\STATE $R \leftarrow * + R$
-				\STATE $i,j \leftarrow i-1,j$
-			\ELSIF{$M_{i,j} - \textsc{Score}(P_i,Q_j) = M_{i,j-1}$}
-				\STATE $R \leftarrow * + R$
-				\STATE $i,j \leftarrow i,j-1$
-	    	\ENDIF	
-		\ENDWHILE
-		\RETURN $R$
-	\end{algorithmic}
-	\end{algorithm}
-\caption{The \textit{traversal path alignment} algorithm}
-\label{fig:lcas}
-\end{figure}
-
 Given the input of 2 arrays $P$ and $Q$ of elements, the scoring function is given as
 $\textsc{Score}(P_i,Q_j) = |P_i \cap Q_j|$, where $P_i$ and $Q_j$ are elements (sets of
 attributes) along $P$ and $Q$. After the alignment, a new generalised traversal path is
 created, $P'$, such that $P'_k = P_i \cap Q_j$, where $P_i$ and $Q_j$ are elements in the
-original traversal paths that were aligned. Figure \ref{fig:lcas} gives the pseudocode for our
-proposed \textit{Path Traversal Alignment} algorithm (PTA).
+original traversal paths that were aligned.
 
 
 When selecting additional elements for generalising the XPath, the $\lambda$ function would be
@@ -67,29 +48,16 @@ This process is a bottom-up approach: Users start with a single element, and as 
 selected, the items captured by the XPath generated grows. For each element along the selected
 item's path, the similarities between the tag's attributes are kept, and the differences
 removed. This results in an extraction rule with fewer and fewer constraints as more elements
-are selected. Figure \ref{fig:lcsexample} shows an example of generalisation between 2 equal
-length traversal paths. The attribute values highlighted in yellow are the ones being removed. 
-
-\input{lcsexample}
-
-Using alignment of the path elements, XPath rules can be generalised for elements at different
-levels of the DOM tree. Figure \ref{fig:lcsdiagram} is an example of the array generated when 2
-\url{<a>} tags are compared, one at a depth of 5 from the \url{<body>} tag, and another at
-depth 3. The \url{<body>} tag is omitted in order to reduce the running time of the algorithm,
-as it is common in the paths for all visible elements on a given page. The algorithm is then
-able to generalise an XPath: \url{//div[@id=`main']/div//a}. This XPath will include both
+are selected. Using alignment of the path elements, XPath rules can be generalised for elements at different
+levels of the DOM tree. This XPath will include both
 selected elements, as well as other anchor tags that the user may be interested in.
 
-
-\input{lcsfigure}
 
 It is important to note that serialising the generalised model to its XPath form would result
 in loss of information. As such the model in its unserialised form is kept, and used again when
 another item on the page is selected. Since this process has an associative property, the order
-in which items are selected on the page does not matter, and the user can then select 3 items
+in which items are selected on the page does not matter, and the user can then select three items
 or more in order to specify the items he wants.
-
-\subsection{Element rejection}
 
 Once the user has defined a region for extraction, he/she may find that the region includes
 items that are irrelevant. Our objective was to make this process part of the selection process as
@@ -97,8 +65,6 @@ well. To achieve this, we used the same alignment algorithm, with $P$ as the alr
 generalised path, and $Q$ as the new traversal path of the element that the user wishes to
 reject, with $\lambda$ defined as $\lambda(P_i,Q_j) = Q_j - (P_i \cap Q_j)$.
 
-
-\subsection{Limitations}
 There are some limitations to this method. When $Q_j = P_i \cap Q_j$ for all $i,j$
 in the aligned path, that rejection path cannot be used. This usually implies that the
 traversal paths of the wanted elements and the rejected elements are indistinguishable using
@@ -111,8 +77,53 @@ but since our method is approached using a sequence of pairwise alignments, the 
 not be achieved. However, in our evaluation the selection scopes of the generated XPaths are found by
 users to be usable for scraping.
 
-One final limitation that is that the XPath generated
-in this manner will not work after a layout change that affects the layout of the DOM
-tree. In the following section, we will describe how we overcome this problem. Overcoming
-this limitation is a major contribution of this thesis and will be discussed in greater
-detail in the next section.
+\subsection{Robust Extraction}
+\label{section:extraction}
+The PTA algorithm enables us to generate a fixed rule (XPath) to extract data from the given pages.
+However, XPath is heavily reliant on the structure of the DOM page in its present form: Any element
+extracted is defined by its ancestor nodes and their attributes. Once this is changed, which is
+likely due to a layout change, the same XPath may no longer be applicable to the current page. 
+
+To extract data even after a change in layout, a method of extraction
+without the use of XPath is required. Our approach for this system uses a machine learned model.
+The rest of the chapter elaborates on the details of the implementation.
+
+In our framework, we use the provided XPaths together with the URLs of the pages to be extracted
+as annotated documents. Each node in the DOM is treated as a separate instance, and labelled
+based on the XPath it was extracted by. The XPaths are assumed to be mutually exclusive. We have
+chosen to use decision trees because the generated models are small, and can be easily interpreted.
+The generation of these models are also relatively faster than other classification models. Since
+CPU time and memory space are constrained resources, decision trees were suitable for our needs.
+
+	To keep the model more robust and resistant to layout changes on the original site,
+content features are extracted in order to use less of the HTML structure for extraction.
+In this system, a J48 decision tree classifier is used. Positive examples of HTML
+elements are those returned when the XPath is applied to the given page.
+The following features are extracted:
+Word occurrence count, or tokens (Numeric),
+Tag name (Discrete),
+Previous sibling, next sibling and parent tag name (Discrete),
+Number of words/tokens (Numeric),
+Ending with character (:,-,.) (Discrete),
+and Header (Discrete)
+	
+
+	
+	%need to run more tests on SVMs and dec trees
+	
+	For subsequent extractions, the server will first use the available XPath for extraction from the site.
+	If the XPath rule fails to find elements for extraction, the learnt classification model is used.
+
+	We crawled the site for other pages which had elements captured
+	by the same set of XPaths in order to increase the training instances we can
+	use for the machine learner. This gave us more instances to train the
+	classifier on, and gave better results. Note that this is also done automatically
+	without user intervention.
+	
+The crawler starts with a given set of pages, and crawls links with URLs similar to the given pages. The similarity score is given by the edit distance between the link URL and the URL of the wanted pages. A heap is used to store the seen links, and the most similar URL selected at every round. The crawler stops when it has collected a fixed number of instances, which is now set at 500.
+	
+
+It should be noted that, from our tests, the learnt model does better on heading-type results, while other
+fields tend to have a low precision score, we will discuss the evaluation results in detail
+in Section 4.
+	

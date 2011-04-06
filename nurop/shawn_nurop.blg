@@ -1,0 +1,61 @@
+This is BibTeX, Version 0.99d (TeX Live 2010/Arch Linux)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: shawn_nurop.aux
+The style file: nurop.bst
+Database file #1: UROP.bib
+Warning--there's a number but no volume in Anton2004
+`month' is a missing field, not a string, for entry Anton2004
+while executing---line 1371 of file nurop.bst
+`month' is a missing field, not a string, for entry Baumgartner2001
+while executing---line 1371 of file nurop.bst
+Warning--empty booktitle in Gatterbauer2007
+`month' is a missing field, not a string, for entry Gatterbauer2007
+while executing---line 1371 of file nurop.bst
+`month' is a missing field, not a string, for entry Lee2004
+while executing---line 1371 of file nurop.bst
+`month' is a missing field, not a string, for entry Needleman1970
+while executing---line 1371 of file nurop.bst
+`month' is a missing field, not a string, for entry Zhang1989
+while executing---line 1371 of file nurop.bst
+You've used 6 entries,
+            2653 wiz_defined-function locations,
+            613 strings with 5604 characters,
+and the built_in function-call counts, 2908 in all, are:
+= -- 282
+> -- 137
+< -- 4
++ -- 50
+- -- 50
+* -- 278
+:= -- 512
+add.period$ -- 17
+call.type$ -- 6
+change.case$ -- 46
+chr.to.int$ -- 6
+cite$ -- 14
+duplicate$ -- 89
+empty$ -- 189
+format.name$ -- 58
+if$ -- 560
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 6
+newline$ -- 32
+num.names$ -- 38
+pop$ -- 48
+preamble$ -- 1
+purify$ -- 46
+quote$ -- 0
+skip$ -- 85
+stack$ -- 0
+substring$ -- 155
+swap$ -- 14
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 54
+warning$ -- 2
+while$ -- 28
+width$ -- 0
+write$ -- 99
+(There were 6 error messages)

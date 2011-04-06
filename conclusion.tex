@@ -1,31 +1,33 @@
-\chapter{Conclusion}
-When tackling the problem of Web Information Extraction in the context of the average user.
-Having looked at some of them in Chapter 1, we have selected a subset of these issues:
-Visual Feedback when performing annotations and creating Robust Wrappers for information 
-extraction.
+ \chapter{Conclusion}
+As of December 2010, there are 255 million websites on the internet, of which 21.4 million
+were created in 2010\footnote{\url{http://mashable.com/2011/01/25/internet-size-infographic}}.
+Our high level goal: to allow users to easily and simply extract any information from any 
+of these websites. The sheer size of the web makes this task seem almost insurmountable.
 
-In our report, we have shown that a simple alignment algorithm can be applied iteratively to
-produce the desired effect to give users a visual feedback of what they will be selecting.
-We have also used machine learning to tackle the issue of creating robust wrappers in the form
-of a decision tree. These wrappers are then used as backups when layouts change and the original
-XPath fails to work. These solutions were then implemented in the grab\textit{smart} system.
+While this primary goal has many challenges, in this report, we have chosen to address 
+two challenges to pave the way towards a more user-centric web IE system. To provide users with a more accessible
+user interface, grab\textit{smart} utilises a simple but effective alignment algorithm we call
+PTA through an interactive and visual experience for its users to specify the information they want extracted
+To create a more robust wrapper that well seamlessly work even after website layout redesign.
 
-There are still limitations with the current implementation, such as the poor performance of
+Overall, our user evaluation shows that the visual selection interface is doing well, 
+while the machine learnt classifier performs comparably to another work in robust 
+web IE. These are promising results and more can be done to improve upon them.
+
+There are also other limitations with the current implementation, such as the poor performance of
 the learnt model when it comes to non-header elements, or elements containing single worded
 content. Also, the system captures information at the HTML tag level, but more useful information
 may lie within the text content inside the tags.
 
 \section{Contributions}
-While grab\textit{smart} is still far from being a full-scale Web Information Extraction system,
-it has the following advantages when compared to other Web IE solutions:
+grab\textit{smart} it has the following advantages when compared to other Web IE solutions:
 \begin{enumerate}
 	\item It provides an immediate visual feedback when the user does the annotation process.
-	\item From a usability perspective, we have shown that it is: Easy to install, relatively
-	simple to use, and the extracted data can easily be viewed.
+	\item It is: Easy to install, relatively simple to use.
 	\item It provides an alternative to the rigidness of the generated XPath with the decision
 	tree wrapper alternative.
-	\item The report also proposes a method for automating the detection layout changes given
-	a chain of archived pages by using the Zhang-Shasha tree edit distance.
+	\item It employs our proposed method for automating the detection layout changes given
+	a chain of archived pages using the Zhang-Shasha tree edit distance.
 \end{enumerate}
 
 \section{Future Work}
@@ -33,15 +35,15 @@ With the \textit{grabsmart} system only tackling a few of the problems in User-c
 it leaves much room for future work to be done:
 
 \subsection{User Interface}
-The selection interface, or the bookmarklet, can be made to consider more
+The  bookmarklet, should consider more
 features of the selected elements. For example, the current implementation only takes into 
 account the attribute values of the elements. Since the XPath syntax also allows for 
-regular expression predicates, it is concievable for a method to be formulated that creates
+regular expression predicates, it is concievable for a method to create
 a regex pattern common to all selected items. This would give a more ``content-based" XPath
 that may be more selective.
 
 The web application, being less of the focus in this project, could have more functionality
-built in. Since the extracted data is already present on the database, one could create
+built-in. Since the extracted data is already present on the database, one could create
 ways in which this data could be manipulated and displayed. Currently, only the data from
 the latest extraction is available. The data from the previous extractions could be used 
 for comparisons with the current extracted data, examples of such data include Linux
@@ -57,13 +59,16 @@ it is a widely used rendering engine. A headless instance of WebKit could functi
 browser, allowing us to query the the page for visual features that would be useful for 
 classifying HTML elements.
 
-\subsection{User-centric Web IE in General}
-A good next step forward for the system would be to be able to do some form of focussed
+\subsection{User-centric Web IE}
+The next step forward for the system would be to do focussed
 crawling through the site for a ``chain" of pages that the user might want.
+Such a system is a viable research problem that could be looked into.
 
 Since the focus of many scraping systems are lists of structured data, many of these are
 paginated, and one of the limitations of our system is that the extractor does not go
 beyond the pages the user has annotated. Being able to infer a navigation pattern that
 goes through this paginated data, and then extracting this automatically would be useful
 for users who do not know how to write a scraper.
+
+
 
